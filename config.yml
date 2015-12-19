@@ -8,4 +8,4 @@ github_url: "https://github.com/veeneck/SwitchBoard"
 root_url: "http://veeneck.github.io/SwitchBoard"
 module_name: SwitchBoard
 skip_undocumented: yes
-swift_version:2.1.1
+swift_version: 2.1.1
