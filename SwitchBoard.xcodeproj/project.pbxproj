@@ -10,6 +10,15 @@
 		E70D18441C25FD2D00BFD600 /* SwitchBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = E70D18431C25FD2D00BFD600 /* SwitchBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E70D184B1C25FD2D00BFD600 /* SwitchBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70D18401C25FD2D00BFD600 /* SwitchBoard.framework */; };
 		E70D18501C25FD2D00BFD600 /* SwitchBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D184F1C25FD2D00BFD600 /* SwitchBoardTests.swift */; };
+		E70D18621C26074F00BFD600 /* PanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D18601C26074F00BFD600 /* PanGesture.swift */; };
+		E70D18631C26074F00BFD600 /* PinchGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D18611C26074F00BFD600 /* PinchGesture.swift */; };
+		E70D18651C26077900BFD600 /* Particleboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70D18641C26077900BFD600 /* Particleboard.framework */; };
+		E70D18691C2607F800BFD600 /* SBGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D18681C2607F800BFD600 /* SBGameScene.swift */; };
+		E70D186B1C2609E700BFD600 /* SBScreenRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D186A1C2609E700BFD600 /* SBScreenRecord.swift */; };
+		E70D186D1C260B1500BFD600 /* SBViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D186C1C260B1500BFD600 /* SBViewDelegate.swift */; };
+		E70D186F1C260B5F00BFD600 /* SBSceneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D186E1C260B5F00BFD600 /* SBSceneContainer.swift */; };
+		E70D18721C26147500BFD600 /* config.yml in Resources */ = {isa = PBXBuildFile; fileRef = E70D18701C26147500BFD600 /* config.yml */; };
+		E70D18731C26147500BFD600 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E70D18711C26147500BFD600 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,11 +33,20 @@
 
 /* Begin PBXFileReference section */
 		E70D18401C25FD2D00BFD600 /* SwitchBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwitchBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E70D18431C25FD2D00BFD600 /* SwitchBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchBoard.h; sourceTree = "<group>"; };
-		E70D18451C25FD2D00BFD600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E70D18431C25FD2D00BFD600 /* SwitchBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SwitchBoard.h; path = SwitchBoard/SwitchBoard.h; sourceTree = "<group>"; };
+		E70D18451C25FD2D00BFD600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = SwitchBoard/Info.plist; sourceTree = "<group>"; };
 		E70D184A1C25FD2D00BFD600 /* SwitchBoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwitchBoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70D184F1C25FD2D00BFD600 /* SwitchBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchBoardTests.swift; sourceTree = "<group>"; };
 		E70D18511C25FD2D00BFD600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E70D18601C26074F00BFD600 /* PanGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanGesture.swift; sourceTree = "<group>"; };
+		E70D18611C26074F00BFD600 /* PinchGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinchGesture.swift; sourceTree = "<group>"; };
+		E70D18641C26077900BFD600 /* Particleboard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Particleboard.framework; path = "../../../Library/Developer/Xcode/DerivedData/Particleboard-evhemslkpnponvhfactqjnukksgb/Build/Products/Debug-iphoneos/Particleboard.framework"; sourceTree = "<group>"; };
+		E70D18681C2607F800BFD600 /* SBGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBGameScene.swift; sourceTree = "<group>"; };
+		E70D186A1C2609E700BFD600 /* SBScreenRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBScreenRecord.swift; sourceTree = "<group>"; };
+		E70D186C1C260B1500BFD600 /* SBViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBViewDelegate.swift; sourceTree = "<group>"; };
+		E70D186E1C260B5F00BFD600 /* SBSceneContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBSceneContainer.swift; sourceTree = "<group>"; };
+		E70D18701C26147500BFD600 /* config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config.yml; sourceTree = "<group>"; };
+		E70D18711C26147500BFD600 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70D18651C26077900BFD600 /* Particleboard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				E70D18421C25FD2D00BFD600 /* SwitchBoard */,
+				E70D185E1C26073900BFD600 /* Config */,
 				E70D184E1C25FD2D00BFD600 /* SwitchBoardTests */,
 				E70D18411C25FD2D00BFD600 /* Products */,
 			);
@@ -71,8 +91,11 @@
 		E70D18421C25FD2D00BFD600 /* SwitchBoard */ = {
 			isa = PBXGroup;
 			children = (
-				E70D18431C25FD2D00BFD600 /* SwitchBoard.h */,
-				E70D18451C25FD2D00BFD600 /* Info.plist */,
+				E70D18681C2607F800BFD600 /* SBGameScene.swift */,
+				E70D186A1C2609E700BFD600 /* SBScreenRecord.swift */,
+				E70D186E1C260B5F00BFD600 /* SBSceneContainer.swift */,
+				E70D186C1C260B1500BFD600 /* SBViewDelegate.swift */,
+				E70D185F1C26074500BFD600 /* Gestures */,
 			);
 			path = SwitchBoard;
 			sourceTree = "<group>";
@@ -84,6 +107,27 @@
 				E70D18511C25FD2D00BFD600 /* Info.plist */,
 			);
 			path = SwitchBoardTests;
+			sourceTree = "<group>";
+		};
+		E70D185E1C26073900BFD600 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E70D18701C26147500BFD600 /* config.yml */,
+				E70D18711C26147500BFD600 /* README.md */,
+				E70D18641C26077900BFD600 /* Particleboard.framework */,
+				E70D18431C25FD2D00BFD600 /* SwitchBoard.h */,
+				E70D18451C25FD2D00BFD600 /* Info.plist */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
+		E70D185F1C26074500BFD600 /* Gestures */ = {
+			isa = PBXGroup;
+			children = (
+				E70D18601C26074F00BFD600 /* PanGesture.swift */,
+				E70D18611C26074F00BFD600 /* PinchGesture.swift */,
+			);
+			name = Gestures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +221,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70D18721C26147500BFD600 /* config.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +239,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70D186D1C260B1500BFD600 /* SBViewDelegate.swift in Sources */,
+				E70D18631C26074F00BFD600 /* PinchGesture.swift in Sources */,
+				E70D18621C26074F00BFD600 /* PanGesture.swift in Sources */,
+				E70D18731C26147500BFD600 /* README.md in Sources */,
+				E70D18691C2607F800BFD600 /* SBGameScene.swift in Sources */,
+				E70D186B1C2609E700BFD600 /* SBScreenRecord.swift in Sources */,
+				E70D186F1C260B5F00BFD600 /* SBSceneContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,32 +360,39 @@
 		E70D18551C25FD2D00BFD600 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "/Users/ryancampbell/Library/Developer/Xcode/DerivedData/Particleboard-evhemslkpnponvhfactqjnukksgb/Build/Products/Debug-iphoneos/";
 				INFOPLIST_FILE = SwitchBoard/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = phalanx.SwitchBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALID_ARCHS = arm64;
 			};
 			name = Debug;
 		};
 		E70D18561C25FD2D00BFD600 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "/Users/ryancampbell/Library/Developer/Xcode/DerivedData/Particleboard-evhemslkpnponvhfactqjnukksgb/Build/Products/Debug-iphoneos/";
 				INFOPLIST_FILE = SwitchBoard/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = phalanx.SwitchBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = arm64;
 			};
 			name = Release;
 		};

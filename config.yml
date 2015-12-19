@@ -1,0 +1,11 @@
+output: /Users/ryancampbell/Documents/Games/veeneck.github.io/SwitchBoard
+readme_path: /Users/ryancampbell/Documents/Games/SwitchBoard/README.md
+author_name: "Ryan Campbell"
+author_url: "http://battleofbrothers.com"
+hide_documentation_coverage: yes
+min_acl: public
+github_url: "https://github.com/veeneck/SwitchBoard"
+root_url: "http://veeneck.github.io/SwitchBoard"
+module_name: SwitchBoard
+skip_undocumented: yes
+swift_version:2.1.1
