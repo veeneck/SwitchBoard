@@ -1,0 +1,391 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E70D18441C25FD2D00BFD600 /* SwitchBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = E70D18431C25FD2D00BFD600 /* SwitchBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E70D184B1C25FD2D00BFD600 /* SwitchBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70D18401C25FD2D00BFD600 /* SwitchBoard.framework */; };
+		E70D18501C25FD2D00BFD600 /* SwitchBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D184F1C25FD2D00BFD600 /* SwitchBoardTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E70D184C1C25FD2D00BFD600 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E70D18371C25FD2D00BFD600 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E70D183F1C25FD2D00BFD600;
+			remoteInfo = SwitchBoard;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E70D18401C25FD2D00BFD600 /* SwitchBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwitchBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E70D18431C25FD2D00BFD600 /* SwitchBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchBoard.h; sourceTree = "<group>"; };
+		E70D18451C25FD2D00BFD600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E70D184A1C25FD2D00BFD600 /* SwitchBoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwitchBoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E70D184F1C25FD2D00BFD600 /* SwitchBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchBoardTests.swift; sourceTree = "<group>"; };
+		E70D18511C25FD2D00BFD600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E70D183C1C25FD2D00BFD600 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E70D18471C25FD2D00BFD600 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E70D184B1C25FD2D00BFD600 /* SwitchBoard.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E70D18361C25FD2D00BFD600 = {
+			isa = PBXGroup;
+			children = (
+				E70D18421C25FD2D00BFD600 /* SwitchBoard */,
+				E70D184E1C25FD2D00BFD600 /* SwitchBoardTests */,
+				E70D18411C25FD2D00BFD600 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E70D18411C25FD2D00BFD600 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E70D18401C25FD2D00BFD600 /* SwitchBoard.framework */,
+				E70D184A1C25FD2D00BFD600 /* SwitchBoardTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E70D18421C25FD2D00BFD600 /* SwitchBoard */ = {
+			isa = PBXGroup;
+			children = (
+				E70D18431C25FD2D00BFD600 /* SwitchBoard.h */,
+				E70D18451C25FD2D00BFD600 /* Info.plist */,
+			);
+			path = SwitchBoard;
+			sourceTree = "<group>";
+		};
+		E70D184E1C25FD2D00BFD600 /* SwitchBoardTests */ = {
+			isa = PBXGroup;
+			children = (
+				E70D184F1C25FD2D00BFD600 /* SwitchBoardTests.swift */,
+				E70D18511C25FD2D00BFD600 /* Info.plist */,
+			);
+			path = SwitchBoardTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E70D183D1C25FD2D00BFD600 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E70D18441C25FD2D00BFD600 /* SwitchBoard.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E70D183F1C25FD2D00BFD600 /* SwitchBoard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E70D18541C25FD2D00BFD600 /* Build configuration list for PBXNativeTarget "SwitchBoard" */;
+			buildPhases = (
+				E70D183B1C25FD2D00BFD600 /* Sources */,
+				E70D183C1C25FD2D00BFD600 /* Frameworks */,
+				E70D183D1C25FD2D00BFD600 /* Headers */,
+				E70D183E1C25FD2D00BFD600 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwitchBoard;
+			productName = SwitchBoard;
+			productReference = E70D18401C25FD2D00BFD600 /* SwitchBoard.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E70D18491C25FD2D00BFD600 /* SwitchBoardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E70D18571C25FD2D00BFD600 /* Build configuration list for PBXNativeTarget "SwitchBoardTests" */;
+			buildPhases = (
+				E70D18461C25FD2D00BFD600 /* Sources */,
+				E70D18471C25FD2D00BFD600 /* Frameworks */,
+				E70D18481C25FD2D00BFD600 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E70D184D1C25FD2D00BFD600 /* PBXTargetDependency */,
+			);
+			name = SwitchBoardTests;
+			productName = SwitchBoardTests;
+			productReference = E70D184A1C25FD2D00BFD600 /* SwitchBoardTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E70D18371C25FD2D00BFD600 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Phalanx Studios";
+				TargetAttributes = {
+					E70D183F1C25FD2D00BFD600 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					E70D18491C25FD2D00BFD600 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = E70D183A1C25FD2D00BFD600 /* Build configuration list for PBXProject "SwitchBoard" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E70D18361C25FD2D00BFD600;
+			productRefGroup = E70D18411C25FD2D00BFD600 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E70D183F1C25FD2D00BFD600 /* SwitchBoard */,
+				E70D18491C25FD2D00BFD600 /* SwitchBoardTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E70D183E1C25FD2D00BFD600 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E70D18481C25FD2D00BFD600 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E70D183B1C25FD2D00BFD600 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E70D18461C25FD2D00BFD600 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E70D18501C25FD2D00BFD600 /* SwitchBoardTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E70D184D1C25FD2D00BFD600 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E70D183F1C25FD2D00BFD600 /* SwitchBoard */;
+			targetProxy = E70D184C1C25FD2D00BFD600 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E70D18521C25FD2D00BFD600 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E70D18531C25FD2D00BFD600 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E70D18551C25FD2D00BFD600 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SwitchBoard/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = phalanx.SwitchBoard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		E70D18561C25FD2D00BFD600 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SwitchBoard/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = phalanx.SwitchBoard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		E70D18581C25FD2D00BFD600 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SwitchBoardTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = phalanx.SwitchBoardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E70D18591C25FD2D00BFD600 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SwitchBoardTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = phalanx.SwitchBoardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E70D183A1C25FD2D00BFD600 /* Build configuration list for PBXProject "SwitchBoard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E70D18521C25FD2D00BFD600 /* Debug */,
+				E70D18531C25FD2D00BFD600 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E70D18541C25FD2D00BFD600 /* Build configuration list for PBXNativeTarget "SwitchBoard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E70D18551C25FD2D00BFD600 /* Debug */,
+				E70D18561C25FD2D00BFD600 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E70D18571C25FD2D00BFD600 /* Build configuration list for PBXNativeTarget "SwitchBoardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E70D18581C25FD2D00BFD600 /* Debug */,
+				E70D18591C25FD2D00BFD600 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E70D18371C25FD2D00BFD600 /* Project object */;
+}
