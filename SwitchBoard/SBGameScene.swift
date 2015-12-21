@@ -14,6 +14,13 @@ public class SBGameScene : SKScene {
     public enum WorldLayer : Int {
         case World = 0, UI, Debug, PermanentDebug
     }
+    
+    public struct CameraBounds {
+        let lowerYOffset : CGFloat = 0
+        let leftXOffset : CGFloat = 0
+        let upperYOffset : CGFloat = 0
+        let rightXOffset : CGFloat = 0
+    }
 
     /// Layer nodes to hold world, UI, debug, other sub layers.
     public var layers = [SKNode]()
@@ -62,7 +69,7 @@ public class SBGameScene : SKScene {
     
     /// MARK: CAMERA
     
-    public func setCameraBounds() {
+    public func setCameraBounds(offsetBounds:CameraBounds) {
         if let camera = self.childNodeWithName("Camera") as? SKCameraNode,
             let bg = self.childNodeWithName("World/bg") {
                 
@@ -86,9 +93,8 @@ public class SBGameScene : SKScene {
                 let insetContentRect = bgSize!.insetBy(dx: xInset, dy: yInset)
                 
                 // Define an `SKRange` for each of the x and y axes to stay within the inset rectangle.
-                let heightOfActionBar : CGFloat = 130
-                let xRange = SKRange(lowerLimit: insetContentRect.minX, upperLimit: insetContentRect.maxX)
-                let yRange = SKRange(lowerLimit: insetContentRect.minY - heightOfActionBar, upperLimit: insetContentRect.maxY)
+                let xRange = SKRange(lowerLimit: insetContentRect.minX - offsetBounds.leftXOffset, upperLimit: insetContentRect.maxX - offsetBounds.rightXOffset)
+                let yRange = SKRange(lowerLimit: insetContentRect.minY - offsetBounds.lowerYOffset, upperLimit: insetContentRect.maxY - offsetBounds.upperYOffset)
                 
                 // Constrain the camera within the inset rectangle.
                 let levelEdgeConstraint = SKConstraint.positionX(xRange, y: yRange)
