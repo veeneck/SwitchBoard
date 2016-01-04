@@ -8,7 +8,7 @@
 
 import ReplayKit
 
-var SB_RECORDING : Bool = false
+public var SB_RECORDING : Bool = false
 
 extension SBGameScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate {
     // MARK: Computed Properties

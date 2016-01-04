@@ -40,7 +40,7 @@ class PinchGesture : UIPinchGestureRecognizer {
     
     func updateCameraBounds(target:SKCameraNode) {
         if let scene = target.scene as? SBGameScene {
-            scene.setCameraBounds()
+            scene.setCameraBounds(scene.cameraBounds)
         }
     }
     
