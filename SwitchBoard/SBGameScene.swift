@@ -48,8 +48,55 @@ public class SBGameScene : SKScene {
     
     #if os(iOS)
         /// ReplayKit preview view controller used when viewing recorded content.
-        var previewViewController: RPPreviewViewController?
+        public var previewViewController: RPPreviewViewController?
+    
+        /// Quick lookup to determine if currently recording
+        public var recording: Bool = false
     #endif
+    
+    // MARK: Layers and Child Nodes
+    
+    /// This can be used for any game, but is somewhat limited since it only supports 4 layers. Constructs the 4 layers and adds them to the scene
+    /// in addition to storing locally under `layers` for quick lookup. Goal is to avoid using `childNodeWithName` when adding or accessing elements.
+    /// TODO: Show how I use this with custom code in GameScene
+    public func buildWorldLayers() {
+        /// world node must be added in .sks file
+        var worldNode = SKNode()
+        if let world = self.childNodeWithName("World") {
+            worldNode = world
+            self.layers.insert(world, atIndex: WorldLayer.World.rawValue)
+        }
+        
+        /// Debug will be a child of world, so that they move together
+        let debug = SKNode()
+        debug.name = "DebugLayer"
+        worldNode.addChild(debug)
+        
+        /// Debug will be a child of world, so that they move together
+        let permdebug = SKNode()
+        permdebug.position = CGPoint(x:0, y:0)
+        permdebug.name = "PermanentDebugLayer"
+        permdebug.zPosition = 3
+        self.addChild(permdebug)
+    }
+    
+    /// Add a child node to one of our four hard coded layers.
+    public func addChild(node:SKNode, layer:WorldLayer) {
+        if(layer == WorldLayer.Debug) {
+            if let debugLayer = self.layers[WorldLayer.World.rawValue].childNodeWithName("DebugLayer") {
+                debugLayer.addChild(node)
+            }
+        }
+        else if(layer == WorldLayer.PermanentDebug) {
+            if let debugLayer = self.childNodeWithName("PermanentDebugLayer") {
+                debugLayer.addChild(node)
+            }
+        }
+        else {
+            self.layers[layer.rawValue].addChild(node)
+        }
+        
+    }
 
     // MARK: Registering Gestures
     
@@ -111,7 +158,7 @@ public class SBGameScene : SKScene {
                 let yRange = SKRange(
                     lowerLimit: insetContentRect.minY - (offsetBounds.lowerYOffset * camera.yScale),
                     upperLimit: insetContentRect.maxY - offsetBounds.upperYOffset)
-                                
+                
                 // Constrain the camera within the inset rectangle.
                 let levelEdgeConstraint = SKConstraint.positionX(xRange, y: yRange)
                 levelEdgeConstraint.referenceNode = bg
@@ -158,6 +205,23 @@ public class SBGameScene : SKScene {
                     handler()
                 })
             })
+        }
+    }
+    
+    /// MARK: Debug Layer
+    
+    /// Call this to replace the debug layer each frame. Example use would be lines drawing a characters heading. The heading updates each frame.
+    /// Instead of keeping tabs of the lines, this just deletes the entire debug layer and recreates it.
+    /// TODO: Create DebugNode with extended functionality?
+    public func updateDebugLayer() {
+        if let debugLayer = self.layers[WorldLayer.World.rawValue].childNodeWithName("DebugLayer") {
+            debugLayer.removeFromParent()
+            
+            /// Debug will be a child of world, so that they move together
+            let debug = SKNode()
+            debug.name = "DebugLayer"
+            debug.zPosition = 2
+            self.layers[WorldLayer.World.rawValue].addChild(debug)
         }
     }
     

@@ -8,14 +8,15 @@
 
 import ReplayKit
 
-public var SB_RECORDING : Bool = false
-
+/**
+ Extending SKScene to allow for screen erecording. A majority of the code is taken from Apple's DemoBots
+*/
 extension SBGameScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate {
+    
     // MARK: Computed Properties
     
     var screenRecordingToggleEnabled: Bool {
-        return true
-        //return NSUserDefaults.standardUserDefaults().boolForKey(screenRecorderEnabledKey)
+        return true //NSUserDefaults.standardUserDefaults().boolForKey("AppConfiguration.Defaults.screenRecorderEnabledKey")
     }
     
     // MARK: Start/Stop Screen Recording
@@ -35,7 +36,7 @@ extension SBGameScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate
             }
         }
         
-        SB_RECORDING = true
+        self.recording = true
     }
     
     public func stopScreenRecordingWithHandler(handler:(() -> Void)) {
@@ -48,7 +49,7 @@ extension SBGameScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate
                 return
             }
             
-            SB_RECORDING = false
+            self.recording = false
             
             if let previewViewController = previewViewController {
                 // Set delegate to handle view controller dismissal.
