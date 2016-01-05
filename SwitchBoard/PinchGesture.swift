@@ -8,7 +8,10 @@
 
 import SpriteKit
 
-class PinchGesture : UIPinchGestureRecognizer {
+/**
+ Pinch gesture for SBGameScene's camera. No need to ever call publicly. Can be intilized by calling `registerGestures` on the scene.
+*/
+public class PinchGesture : UIPinchGestureRecognizer {
     
     func handlePinch(recognizer:UIPinchGestureRecognizer, target:SKCameraNode) {
         switch(recognizer.state) {

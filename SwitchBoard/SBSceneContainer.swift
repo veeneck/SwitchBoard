@@ -8,8 +8,19 @@
 
 import SpriteKit
 
+/**
+    Object representing each scene. By giving paramaters like transition, preloadable, etc we can have the SBSceneManager run everything dynamically.
+*/
 public struct SBSceneContainer {
     
+    /**
+     SceneGroups define which scenes share assets and should be loaded / cached together. Currently, this is hard coded to 4 groups as `enums` can't be extended or modifier. For true open sourcing, this needs to be rethought and scene groups need to be something that you can register.
+     
+     - Main: Main menu
+     - World: World map, travel, camp, etc
+     - Battle: Game level
+     - Misc: Other groupings
+    */
     public enum SceneGroup : Int {
         case Main = 0, World, Battle, Misc
         
@@ -25,23 +36,26 @@ public struct SBSceneContainer {
     }
     
     /// The actual class of the scene. Need this to properly unarchive
-    let classType : SBGameScene.Type
+    public let classType : SBGameScene.Type
     
     /// The name of the scene .sks file to load
-    let name : String
+    public let name : String
     
     /// Default transition into this scene
-    let transition : SKTransition?
+    public let transition : SKTransition?
     
     /// Whether or not the next scene should be preloaded.
-    /// Hard coded as true for lightweight scenes where I know memory won't be an issue
-    let preloadable : Bool
+    public let preloadable : Bool
     
     /// Used to store specific data like "Intro" for type of Story scene
     public var userData = NSMutableDictionary()
     
-    var category : SceneGroup = SceneGroup.World
+    /// Which SceneGroup this scene belongs to
+    public var category : SceneGroup = SceneGroup.World
     
+    // MARK: Initializing a SBSceneContainer
+    
+    /// Main initializer to set all required parameters
     public init(classType:SBGameScene.Type, name:String, transition:SKTransition? = nil, preloadable:Bool = false, category:SceneGroup = SceneGroup.World) {
         self.classType = classType
         self.name = name

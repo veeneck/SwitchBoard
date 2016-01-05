@@ -10,7 +10,10 @@ import SpriteKit
 import Foundation
 import Particleboard
 
-class PanGesture : UIPanGestureRecognizer {
+/**
+ Pan gesture for SBGameScene's camera. No need to ever call publicly. Can be intilized by calling `registerGestures` on the scene.
+*/
+public class PanGesture : UIPanGestureRecognizer {
     
     func handlePan(recognizer:UIPanGestureRecognizer, target:SKCameraNode) {
         switch(recognizer.state) {

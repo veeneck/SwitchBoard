@@ -8,30 +8,45 @@
 
 import SpriteKit
 
+/**
+ This is the main class powering scene management, and should be created in the view controller. This class handles state, preloading, when to show the loading scene, communicating with the view, and caching. This class isn't meant to be publicly accessed. Instead, it conforms to SBViewDelegate which provides public functions that can be accessed. The reason for this is because this object holds onto cache, so we don't want to store a copy of it on each scene -- instead, there should only be one copy that is attached to each scene as it loads.
+*/
 public class SBSceneManager : SBViewDelegate {
     
+    /// The main SKView of the game
     let view : SKView
     
-    let loadingScene : SKScene
+    /// TODO: This holds on to the loading scene and keeps it permanenty cached.
+    public let loadingScene : SKScene
     
     /// Manually called by individual scenes when they want to maintain state the next time they are displayed.
     var sceneCache = Dictionary<String, SBGameScene>()
     
+    /// Handle on the current scene
     var currentScene : SBSceneContainer?
     
+    /// All scene objects that can be played.
     public var scenes = Dictionary<String, SBSceneContainer>()
     
+    // MARK: Initializing a SBSceneManager
+    
+    /// Requires a view to initialize. Won't present anything on init. Instead, SBSceneContainers must be registered, and `sceneDidFinish` must be called with the initial scene to view.
     public init(view:SKView) {
         self.view = view
         self.loadingScene = SBGameScene(fileNamed:"Loading")!
     }
     
+    // MARK: Registering Scenes
+    
+    /// Main way to add SBSceneContainers to the pool of available scenes.
     public func registerScene(key:String, scene:SBSceneContainer) {
         self.scenes[key] = scene
     }
     
+    // MARK: Loading Scenes
+    
     /// The standard method to load a scene and then present it
-    func loadAndPresentScene(sceneObj:SBSceneContainer) {
+    internal func loadAndPresentScene(sceneObj:SBSceneContainer) {
         
         // If the scene is cached, set it to current scene and present it
         // This is specifically an entire scene cached, not just the textures
@@ -59,7 +74,7 @@ public class SBSceneManager : SBViewDelegate {
         
     }
     
-    func presentScene(scene:SKScene, sceneObj:SBSceneContainer?) {
+    internal func presentScene(scene:SKScene, sceneObj:SBSceneContainer?) {
         // Configure the view.
         let skView = self.view
         //skView.showsFPS = true
@@ -88,14 +103,15 @@ public class SBSceneManager : SBViewDelegate {
         }
     }
     
+    /// Public facing method to play a scene. Pass in the next SBSceneContainer to get that scene to load.
     public func sceneDidFinish(nextScene:SBSceneContainer) {
         self.loadAndPresentScene(nextScene)
     }
     
     
-    // MARK: CACHING TEXTURES AND SCENES
+    // MARK: Caching
     
-    func clearSceneCacheIfNecessary(sceneObj:SBSceneContainer) -> Bool {
+    internal func clearSceneCacheIfNecessary(sceneObj:SBSceneContainer) -> Bool {
         // If major scene change, clear cache, or if first scene to be shown
         if((sceneObj.category != self.currentScene?.category && sceneObj.category != SBSceneContainer.SceneGroup.Misc) || self.currentScene == nil) {
             self.sceneCache.removeAll(keepCapacity: false)
@@ -107,7 +123,7 @@ public class SBSceneManager : SBViewDelegate {
     
     // If a scene group requires it, preload all related assets
     // For example, when loading world map, camp will also be loaded
-    func preloadRelatedScenesInBackground(sceneObj:SBSceneContainer) {
+    internal func preloadRelatedScenesInBackground(sceneObj:SBSceneContainer) {
         if(sceneObj.category.loadGroup) {
             for (_, scene) in self.scenes {
                 if(scene.name != sceneObj.name && scene.category == sceneObj.category) {

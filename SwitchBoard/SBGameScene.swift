@@ -12,8 +12,19 @@ import ReplayKit
 /// Global texture cache to minimize loading screens. Cleared only during major scene group changes
 public var globalTextureCache = Dictionary<String, SKTextureAtlas>()
 
+/**
+ Default template for a game scene. Each custom scene in a project should extend this.
+*/
 public class SBGameScene : SKScene {
     
+    /**
+     Layers representing SKNodes in the scene. Currently, this is hard coded to 4 groups as `enums` can't be extended or modifier. For true open sourcing, this needs to be rethought and layers need to be something that you can register.
+     
+     - World: The layer that gameplay takes place on. Automatically created.
+     - UI: The layer that UI takes place on. Not automatically created.
+     - Debug: A layer that is meant to be wiped each frame and only turned on in debug mode.
+     - PermanentDebug: A debug layer for drawing that is not wiped each frame.
+    */
     public enum WorldLayer : Int {
         case World = 0, UI, Debug, PermanentDebug
     }
@@ -127,7 +138,8 @@ public class SBGameScene : SKScene {
     }
     
     // MARK: Camera Constraints
-        
+    
+    /// Bind the camera to the size of any node in your scene named "bg" that is a child of "World". This is automaticaly called from functions that change perspective like PinchGesture. You can also call on your own if you manually change the scale of the scene.
     public func setCameraBounds(offsetBounds:CameraBounds) {
         if let camera = self.childNodeWithName("Camera") as? SKCameraNode,
             let bg = self.childNodeWithName("World/bg") {
@@ -167,7 +179,7 @@ public class SBGameScene : SKScene {
         }
     }
 
-    /// MARK: Preloading Assets
+    // MARK: Preloading Assets
     
     
     // Each scene should override this to preload necessary assets
