@@ -10,6 +10,8 @@ import SpriteKit
 
 public protocol SBViewDelegate {
     
+    var scenes : Dictionary<String, SBSceneContainer> { get set }
+    
     func sceneDidFinish(nextScene:SBSceneContainer)
     
 }
