@@ -9,9 +9,6 @@
 import SpriteKit
 import ReplayKit
 
-/// Global texture cache to minimize loading screens. Cleared only during major scene group changes
-public var globalTextureCache = Dictionary<String, SKTextureAtlas>()
-
 /**
  Default template for a game scene. Each custom scene in a project should extend this.
 */
@@ -199,25 +196,30 @@ public class SBGameScene : SKScene {
     /// Can get rid of the dispatch_async if preload is fixed
     public class func loadAndCacheSceneAssets(atlasNames:Array<String>, handler:()->()) {
         
-        // If already in cache, just return
-        // This prevents the flicker of the loading screen
-        if(globalTextureCache[atlasNames[0]] != nil) {
-            handler()
+        /// Filter out items already in cache
+        let uncachedNames = atlasNames.filter({ SBCache.sharedInstance.objectForKey($0) == nil})
+        
+        /// Build texture array to preload
+        var textures = Array<SKTextureAtlas>()
+        for (_, name) in uncachedNames.enumerate() {
+            textures.append(SKTextureAtlas(named: name))
         }
-        else {
-            var textures = Array<SKTextureAtlas>()
-            for name in atlasNames {
-                textures.append(SKTextureAtlas(named: name))
-            }
+        
+        /// If needed textures, preload them. Otherwise, go straight to handler callback
+        if textures.count > 0 {
             SKTextureAtlas.preloadTextureAtlases(textures, withCompletionHandler: {
                 dispatch_async(dispatch_get_main_queue(), {
-                    for (key, name) in atlasNames.enumerate() {
-                        globalTextureCache[name] = textures[key]
+                    for (key, name) in uncachedNames.enumerate() {
+                        SBCache.sharedInstance.setObject(textures[key], forKey: name)
                     }
                     handler()
                 })
             })
         }
+        else {
+            handler()
+        }
+        
     }
     
     /// MARK: Debug Layer

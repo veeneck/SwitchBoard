@@ -20,6 +20,7 @@
 		E70D18721C26147500BFD600 /* config.yml in Resources */ = {isa = PBXBuildFile; fileRef = E70D18701C26147500BFD600 /* config.yml */; };
 		E70D18731C26147500BFD600 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E70D18711C26147500BFD600 /* README.md */; };
 		E73F51C81C3C5D400075A632 /* SBSceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F51C71C3C5D3F0075A632 /* SBSceneManager.swift */; };
+		E73F51CA1C3DAA8F0075A632 /* SBCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F51C91C3DAA8F0075A632 /* SBCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		E70D18701C26147500BFD600 /* config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config.yml; sourceTree = "<group>"; };
 		E70D18711C26147500BFD600 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E73F51C71C3C5D3F0075A632 /* SBSceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBSceneManager.swift; sourceTree = "<group>"; };
+		E73F51C91C3DAA8F0075A632 /* SBCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				E70D186E1C260B5F00BFD600 /* SBSceneContainer.swift */,
 				E70D186C1C260B1500BFD600 /* SBViewDelegate.swift */,
 				E73F51C71C3C5D3F0075A632 /* SBSceneManager.swift */,
+				E73F51C91C3DAA8F0075A632 /* SBCache.swift */,
 				E70D185F1C26074500BFD600 /* Gestures */,
 			);
 			path = SwitchBoard;
@@ -245,6 +248,7 @@
 				E70D186D1C260B1500BFD600 /* SBViewDelegate.swift in Sources */,
 				E70D18631C26074F00BFD600 /* PinchGesture.swift in Sources */,
 				E70D18621C26074F00BFD600 /* PanGesture.swift in Sources */,
+				E73F51CA1C3DAA8F0075A632 /* SBCache.swift in Sources */,
 				E70D18731C26147500BFD600 /* README.md in Sources */,
 				E70D18691C2607F800BFD600 /* SBGameScene.swift in Sources */,
 				E73F51C81C3C5D400075A632 /* SBSceneManager.swift in Sources */,

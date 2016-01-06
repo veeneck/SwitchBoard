@@ -115,7 +115,7 @@ public class SBSceneManager : SBViewDelegate {
         // If major scene change, clear cache, or if first scene to be shown
         if((sceneObj.category != self.currentScene?.category && sceneObj.category != SBSceneContainer.SceneGroup.Misc) || self.currentScene == nil) {
             self.sceneCache.removeAll(keepCapacity: false)
-            globalTextureCache.removeAll(keepCapacity: false)
+            SBCache.sharedInstance.removeAllObjects()
             return true
         }
         return false
