@@ -91,7 +91,6 @@ public class SBSceneManager : SBViewDelegate {
         /// Cut the framerate down to 30 FPS
         skView.frameInterval = 1
         
-        
         if(sceneObj?.transition != nil) {
             let transition = sceneObj!.transition!
             transition.pausesIncomingScene = false

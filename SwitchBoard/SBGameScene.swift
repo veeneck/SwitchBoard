@@ -56,7 +56,7 @@ public class SBGameScene : SKScene {
     
     #if os(iOS)
         /// ReplayKit preview view controller used when viewing recorded content.
-        public var previewViewController: RPPreviewViewController?
+        public weak var previewViewController: RPPreviewViewController?
     
         /// Quick lookup to determine if currently recording
         public var recording: Bool = false
@@ -222,6 +222,17 @@ public class SBGameScene : SKScene {
         
     }
     
+    /// MARK: Cleanup
+    
+    override public func willMoveFromView(view: SKView) {
+        self.removeAllChildren()
+        self.removeAllActions()
+    }
+    
+    deinit {
+        print("\n THIS SCENE WAS REMOVED FROM MEMORY (DEINIT) \n")
+    }
+    
     /// MARK: Debug Layer
     
     /// Call this to replace the debug layer each frame. Example use would be lines drawing a characters heading. The heading updates each frame.
@@ -238,5 +249,6 @@ public class SBGameScene : SKScene {
             self.layers[WorldLayer.World.rawValue].addChild(debug)
         }
     }
+
     
 }
