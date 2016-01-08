@@ -62,13 +62,15 @@ public class SBSceneManager : SBViewDelegate {
                 self.preloadRelatedScenesInBackground(sceneObj)
             }
             // Load assets for this scene, and present it
-            sceneObj.classType.loadSceneAssetsWithCompletionHandler() {
-                if let scene = sceneObj.classType.init(fileNamed: sceneObj.name) {
-                    scene.userData = sceneObj.userData
-                    scene.sbViewDelegate = self
-                    self.currentScene = sceneObj
-                    self.presentScene(scene, sceneObj: sceneObj)
-                }
+            sceneObj.classType.loadAndCacheSceneAssets(sceneObj.atlases) {
+                sceneObj.classType.loadSceneAssetsWithCompletionHandler() {
+                    if let scene = sceneObj.classType.init(fileNamed: sceneObj.name) {
+                        scene.userData = sceneObj.userData
+                        scene.sbViewDelegate = self
+                        self.currentScene = sceneObj
+                        self.presentScene(scene, sceneObj: sceneObj)
+                    }
+            }
             }
         }
         
@@ -90,7 +92,6 @@ public class SBSceneManager : SBViewDelegate {
         
         /// Cut the framerate down to 30 FPS
         skView.frameInterval = 1
-        
         if(sceneObj?.transition != nil) {
             let transition = sceneObj!.transition!
             transition.pausesIncomingScene = false
@@ -114,7 +115,26 @@ public class SBSceneManager : SBViewDelegate {
         // If major scene change, clear cache, or if first scene to be shown
         if((sceneObj.category != self.currentScene?.category && sceneObj.category != SBSceneContainer.SceneGroup.Misc) || self.currentScene == nil) {
             self.sceneCache.removeAll(keepCapacity: false)
+            
+            var tempCache = Dictionary<String, SKTextureAtlas>()
+            
+            /// Copy any items needed for next scene into temp cache
+            for key in sceneObj.atlases {
+                if let cachedVersion = SBCache.sharedInstance.objectForKey(key) as? SKTextureAtlas {
+                    tempCache[key] = cachedVersion
+                }
+            }
+            
+            /// Clear cache
             SBCache.sharedInstance.removeAllObjects()
+            
+            /// Populate cache with the temp cache objects that we know we need for next scene
+            for (key, value) in tempCache {
+                print("re-caching \(key)")
+                SBCache.sharedInstance.setObject(value, forKey: key)
+            }
+
+            
             return true
         }
         return false

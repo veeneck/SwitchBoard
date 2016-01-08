@@ -53,15 +53,19 @@ public struct SBSceneContainer {
     /// Which SceneGroup this scene belongs to
     public var category : SceneGroup = SceneGroup.World
     
+    /// Which atlases are necessary and should be loade dby default for this scene
+    public var atlases : [String]
+    
     // MARK: Initializing a SBSceneContainer
     
     /// Main initializer to set all required parameters
-    public init(classType:SBGameScene.Type, name:String, transition:SKTransition? = nil, preloadable:Bool = false, category:SceneGroup = SceneGroup.World) {
+    public init(classType:SBGameScene.Type, name:String, transition:SKTransition? = nil, preloadable:Bool = false, category:SceneGroup = SceneGroup.World, atlases:[String] = [String]()) {
         self.classType = classType
         self.name = name
         self.transition = transition
         self.preloadable = preloadable
         self.category = category
+        self.atlases = atlases
     }
 
     

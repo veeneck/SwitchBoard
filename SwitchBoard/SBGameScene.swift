@@ -210,6 +210,7 @@ public class SBGameScene : SKScene {
             SKTextureAtlas.preloadTextureAtlases(textures, withCompletionHandler: {
                 dispatch_async(dispatch_get_main_queue(), {
                     for (key, name) in uncachedNames.enumerate() {
+                        print("\(name) was not in cache, so it was just loaded")
                         SBCache.sharedInstance.setObject(textures[key], forKey: name)
                     }
                     handler()
@@ -222,8 +223,10 @@ public class SBGameScene : SKScene {
         
     }
     
-    /// MARK: Cleanup
+    // MARK: Cleanup
     
+    /// Called automatically and will remove nodes and actions. After this, a log line should print indicating the scene
+    /// was successfully deallocated. If you don't see the log line, there is probably a memory leak somewhere.
     override public func willMoveFromView(view: SKView) {
         self.removeAllChildren()
         self.removeAllActions()
