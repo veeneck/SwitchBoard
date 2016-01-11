@@ -218,6 +218,7 @@ public class SBGameScene : SKScene {
             })
         }
         else {
+            print("Everything for this scene was loaded from cache")
             handler()
         }
         

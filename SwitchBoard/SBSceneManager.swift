@@ -56,10 +56,12 @@ public class SBSceneManager : SBViewDelegate {
         }
             // else show loading screen and fully load scene. clear cache if needed
         else {
-            // Change cache if major scene change, in whcih case preload all related assets
+            // Change cache if major scene change, in which case set bool to preload all related scene assets
+            var fullReset : Bool = false
             if(self.clearSceneCacheIfNecessary(sceneObj)) {
+                fullReset = true
                 self.presentScene(self.loadingScene, sceneObj: nil)
-                self.preloadRelatedScenesInBackground(sceneObj)
+                
             }
             // Load assets for this scene, and present it
             sceneObj.classType.loadAndCacheSceneAssets(sceneObj.atlases) {
@@ -69,6 +71,12 @@ public class SBSceneManager : SBViewDelegate {
                         scene.sbViewDelegate = self
                         self.currentScene = sceneObj
                         self.presentScene(scene, sceneObj: sceneObj)
+                        
+                        /// We actually do the preload of related scene assets here so that it doesn't happen in background while
+                        /// main assets are loading. This happens after, which will prevent duplicate loading of atlases
+                        if(fullReset) {
+                            self.preloadRelatedScenesInBackground(sceneObj)
+                        }
                     }
             }
             }
@@ -130,7 +138,7 @@ public class SBSceneManager : SBViewDelegate {
             
             /// Populate cache with the temp cache objects that we know we need for next scene
             for (key, value) in tempCache {
-                print("re-caching \(key)")
+                print("\(key) was already cached and the next scene needs it. Keep it -- don't delete it.")
                 SBCache.sharedInstance.setObject(value, forKey: key)
             }
 
@@ -146,7 +154,9 @@ public class SBSceneManager : SBViewDelegate {
         if(sceneObj.category.loadGroup) {
             for (_, scene) in self.scenes {
                 if(scene.name != sceneObj.name && scene.category == sceneObj.category) {
-                    scene.classType.loadSceneAssetsWithCompletionHandler({})
+                    scene.classType.loadAndCacheSceneAssets(scene.atlases) {
+                        scene.classType.loadSceneAssetsWithCompletionHandler({})
+                    }
                 }
             }
         }

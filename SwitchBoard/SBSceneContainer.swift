@@ -62,7 +62,7 @@ public struct SBSceneContainer {
     public init(classType:SBGameScene.Type, name:String, transition:SKTransition? = nil, preloadable:Bool = false, category:SceneGroup = SceneGroup.World, atlases:[String] = [String]()) {
         self.classType = classType
         self.name = name
-        self.transition = transition
+        self.transition = SKTransition.crossFadeWithDuration(2)// transition
         self.preloadable = preloadable
         self.category = category
         self.atlases = atlases
