@@ -16,7 +16,7 @@ public class SBSceneManager : SBViewDelegate {
     /// The main SKView of the game
     let view : SKView
     
-    /// TODO: This holds on to the loading scene and keeps it permanenty cached.
+    /// This holds on to the loading scene and keeps it permanenty cached. Hard coded to Loading.sks currently.
     public let loadingScene : SKScene
     
     /// Manually called by individual scenes when they want to maintain state the next time they are displayed.

@@ -110,6 +110,85 @@ override class func loadSceneAssetsWithCompletionHandler(handler:()->()) {
 
 This allows you to perform logic before loading the assets. By then calling `loadAndCacheSceneAssets`, the caching mechanism is still utilized.
 
+### **Extendeding SBGameScene**
+
+Here is an example of how I extend SBGameScene to utilize all of the features it has:
+
+```swift
+class GameScene : SBGameScene {
+
+    /// Stored reference to UI / HUD elemtns for quick lookup
+    weak var ui : UINode?
+
+    // MARK: World Layers
+
+    /// Setup an array of child SKNodes to hold different visual elements
+    override func buildWorldLayers() {
+
+        /// I have an action bar at bototm of screen, so this will offset camera boundaries.
+        self.cameraBounds = CameraBounds(lower: 100, left: 0, upper: 0, right: 0)
+
+        /// Change width of scene if iPad
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            self.size = CGSize(width: 2048, height: 1536)
+        }
+        
+        /// Call SBGamescene .buildWorldLayers which will set up the array of world nodes.
+        super.buildWorldLayers()
+
+        /// Manually create my own UI layer since it is custom and not empty. Add it to self.layers for easy adding and lookup
+        let ui = UINode()
+        ui.name = "UI"
+        self.childNodeWithName("Camera")?.addChild(ui)
+        ui.initDefaults(self)
+        self.layers.append(ui)
+        self.ui = ui
+
+        /// Set the camera as the scenes camera.
+        self.camera = self.childNodeWithName("Camera") as? SKCameraNode
+
+        /// Contrain the camera
+        self.setCameraBounds(self.cameraBounds)
+    }
+
+    // MARK: Debug
+
+    /// If debug is enabled in my project, call super function to clean the debug layer every frame.
+    override func updateDebugLayer() {
+        if(Debug.Layers.enabled) {
+            super.updateDebugLayer()
+        }
+    }
+
+}
+
+```
+
+By doing this, I'll have the support of `SBGameScene`, and can then add onto `GameScene` for code specific to my project. In the example above, I showed a small snippet of that with the UI layer. The idea behind layers is that the camera will know what the world is, adding children won't require searching the node tree, etc. 
+
+### **Screen Recording**
+
+Example code to use screen recording:
+
+```swift
+func recordButtonTapped() {
+    if let scene = self.scene as? GameScene {
+        if(scene.recording) {
+            scene.stopScreenRecordingWithHandler({ [weak self] in
+                if let icon = self?.root?.childNodeWithName("button_Record") as? SKSpriteNode {
+                    icon.texture = SKTexture(imageNamed: "icon_Record")
+                }
+            })
+        }
+        else {
+            if let icon = self.root?.childNodeWithName("button_Record") as? SKSpriteNode {
+                icon.texture = SKTexture(imageNamed: "icon_StopRecord")
+            }
+            scene.startScreenRecording()
+        }
+    }
+}
+```
 
 ## Documentation
 

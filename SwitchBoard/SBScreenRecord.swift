@@ -9,7 +9,7 @@
 import ReplayKit
 
 /**
- Extending SKScene to allow for screen erecording. A majority of the code is taken from Apple's DemoBots
+ Extending SKScene to allow for screen erecording. A majority of the code is taken from Apple's DemoBots. See README for example usage
 */
 extension SBGameScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate {
     

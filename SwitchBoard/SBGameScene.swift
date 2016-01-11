@@ -10,7 +10,15 @@ import SpriteKit
 import ReplayKit
 
 /**
- Default template for a game scene. Each custom scene in a project should extend this.
+ Default template for a game scene. Each custom scene in a project should extend this in order to work with other items like `SBSceneManager`, `PanGesture`, etc. Benefits of extending this class are:
+ 
+ - Built in layering. See `WorldLayer`
+ - Built in debug layer that auto clears
+ - Ties to viewDelegate for easy scene switching and management of atlases
+ - Built in screen recording through `previewViewController`
+ - Call `registureGestures` to automatically enable panning and zooming of your scene
+ 
+ **Note**: This project is still in development, so some items / implementations aren't flexible. If you encounter problems, the source is heavily documented.
 */
 public class SBGameScene : SKScene {
     
@@ -56,6 +64,7 @@ public class SBGameScene : SKScene {
     
     #if os(iOS)
         /// ReplayKit preview view controller used when viewing recorded content.
+        /// See README for example usages as the extension is not showing in the documentation.
         public weak var previewViewController: RPPreviewViewController?
     
         /// Quick lookup to determine if currently recording
@@ -66,7 +75,6 @@ public class SBGameScene : SKScene {
     
     /// This can be used for any game, but is somewhat limited since it only supports 4 layers. Constructs the 4 layers and adds them to the scene
     /// in addition to storing locally under `layers` for quick lookup. Goal is to avoid using `childNodeWithName` when adding or accessing elements.
-    /// TODO: Show how I use this with custom code in GameScene
     public func buildWorldLayers() {
         /// world node must be added in .sks file
         var worldNode = SKNode()
@@ -108,6 +116,7 @@ public class SBGameScene : SKScene {
 
     // MARK: Registering Gestures
     
+    /// Call this to register pinch and pan gestures which will be tied to "World/bg" in your node tree. See `setCameraBounds`.
     public func registerGestures() {
         
         /// Pan setup
@@ -179,7 +188,7 @@ public class SBGameScene : SKScene {
     // MARK: Preloading Assets
     
     
-    // Each scene should override this to preload necessary assets
+    /// Each scene should override this to preload necessary assets
     public class func loadSceneAssetsWithCompletionHandler(handler:()->()) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
             
@@ -237,7 +246,7 @@ public class SBGameScene : SKScene {
         print("\n THIS SCENE WAS REMOVED FROM MEMORY (DEINIT) \n")
     }
     
-    /// MARK: Debug Layer
+    // MARK: Debug Layer
     
     /// Call this to replace the debug layer each frame. Example use would be lines drawing a characters heading. The heading updates each frame.
     /// Instead of keeping tabs of the lines, this just deletes the entire debug layer and recreates it.
