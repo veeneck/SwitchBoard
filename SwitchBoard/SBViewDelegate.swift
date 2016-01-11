@@ -19,4 +19,7 @@ public protocol SBViewDelegate {
     /// Indicate that the current scene is done, and the passed in scene should begin.
     func sceneDidFinish(nextScene:SBSceneContainer)
     
+    /// Handle on the current scene
+    var currentScene : SBSceneContainer? { get set }
+    
 }

@@ -23,7 +23,7 @@ public class SBSceneManager : SBViewDelegate {
     var sceneCache = Dictionary<String, SBGameScene>()
     
     /// Handle on the current scene
-    var currentScene : SBSceneContainer?
+    public var currentScene : SBSceneContainer?
     
     /// All scene objects that can be played.
     public var scenes = Dictionary<String, SBSceneContainer>()
