@@ -8,6 +8,7 @@
 
 import SpriteKit
 import ReplayKit
+import Particleboard
 
 /**
  Default template for a game scene. Each custom scene in a project should extend this in order to work with other items like `SBSceneManager`, `PanGesture`, etc. Benefits of extending this class are:
@@ -219,7 +220,8 @@ public class SBGameScene : SKScene {
             SKTextureAtlas.preloadTextureAtlases(textures, withCompletionHandler: {
                 dispatch_async(dispatch_get_main_queue(), {
                     for (key, name) in uncachedNames.enumerate() {
-                        print("\(name) was not in cache, so it was just loaded")
+                        
+                        log.info("\(name) was not in cache, so it was just loaded")
                         SBCache.sharedInstance.setObject(textures[key], forKey: name)
                     }
                     handler()
@@ -227,7 +229,7 @@ public class SBGameScene : SKScene {
             })
         }
         else {
-            print("Everything for this scene was loaded from cache")
+            log.info("Everything for this scene was loaded from cache")
             handler()
         }
         
@@ -243,7 +245,7 @@ public class SBGameScene : SKScene {
     }
     
     deinit {
-        print("\n THIS SCENE WAS REMOVED FROM MEMORY (DEINIT) \n")
+        log.warning("\n THIS SCENE WAS REMOVED FROM MEMORY (DEINIT) \n")
     }
     
     // MARK: Debug Layer
