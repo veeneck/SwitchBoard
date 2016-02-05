@@ -240,6 +240,11 @@ public class SBGameScene : SKScene {
     /// Called automatically and will remove nodes and actions. After this, a log line should print indicating the scene
     /// was successfully deallocated. If you don't see the log line, there is probably a memory leak somewhere.
     override public func willMoveFromView(view: SKView) {
+        if view.gestureRecognizers != nil {
+            for gesture in view.gestureRecognizers! {
+                view.removeGestureRecognizer(gesture)
+            }
+        }
         self.removeAllChildren()
         self.removeAllActions()
     }
