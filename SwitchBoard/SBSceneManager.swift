@@ -99,6 +99,9 @@ public class SBSceneManager : SBViewDelegate {
         /* Set the scale mode to scale to fit the window */
         scene.scaleMode = .AspectFill
         
+        /* Remove gestures from last scene */
+        self.removeGestureRecognizer()
+        
         /// Cut the framerate down to 30 FPS
         skView.frameInterval = 1
         if(sceneObj?.transition != nil) {
@@ -117,6 +120,14 @@ public class SBSceneManager : SBViewDelegate {
         self.loadAndPresentScene(nextScene)
     }
     
+    /// Method to remove all gesture recognizers from the view
+    public func removeGestureRecognizer() {
+        if self.view.gestureRecognizers != nil {
+            for gesture in self.view.gestureRecognizers! {
+                self.view.removeGestureRecognizer(gesture)
+            }
+        }
+    }
     
     // MARK: Caching
     
