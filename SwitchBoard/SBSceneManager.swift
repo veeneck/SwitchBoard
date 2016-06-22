@@ -7,7 +7,6 @@
 //
 
 import SpriteKit
-import Particleboard
 
 /**
  This is the main class powering scene management, and should be created in the view controller. This class handles state, preloading, when to show the loading scene, communicating with the view, and caching. This class isn't meant to be publicly accessed. Instead, it conforms to SBViewDelegate which provides public functions that can be accessed. The reason for this is because this object holds onto cache, so we don't want to store a copy of it on each scene -- instead, there should only be one copy that is attached to each scene as it loads.
@@ -122,13 +121,15 @@ public class SBSceneManager : SBViewDelegate {
     
     /// Method to remove all gesture recognizers from the view
     public func removeGestureRecognizer() {
+        #if os(iOS)
         if self.view?.gestureRecognizers != nil {
             for gesture in self.view!.gestureRecognizers! {
                 self.view!.removeGestureRecognizer(gesture)
             }
         }
+        #endif
     }
-    
+
     // MARK: Caching
     
     internal func clearSceneCacheIfNecessary(sceneObj:SBSceneContainer) -> Bool {

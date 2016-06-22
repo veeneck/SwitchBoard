@@ -7,8 +7,12 @@
 //
 
 import SpriteKit
-import ReplayKit
+#if os(iOS)
 import Particleboard
+import ReplayKit
+#elseif os(OSX)
+import ParticleboardOS
+#endif
 
 /**
  Default template for a game scene. Each custom scene in a project should extend this in order to work with other items like `SBSceneManager`, `PanGesture`, etc. Benefits of extending this class are:
@@ -117,6 +121,8 @@ public class SBGameScene : SKScene {
 
     // MARK: Registering Gestures
     
+    #if os(iOS)
+    
     /// Call this to register pinch and pan gestures which will be tied to "World/bg" in your node tree. See `setCameraBounds`.
     public func registerGestures() {
         
@@ -143,6 +149,8 @@ public class SBGameScene : SKScene {
             handler.handlePinch(recognizer: recognizer, target: camera)
         }
     }
+    
+    #endif
     
     // MARK: Camera Constraints
     

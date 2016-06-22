@@ -21,9 +21,11 @@ public class SBCache : Cache<AnyObject, AnyObject> {
     override init() {
         super.init()
         
+        #if os(iOS)
         observer = NotificationCenter.default().addObserver(forName: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil, queue: nil) { [unowned self] notification in
             self.removeAllObjects()
         }
+        #endif
     }
     
     deinit {
