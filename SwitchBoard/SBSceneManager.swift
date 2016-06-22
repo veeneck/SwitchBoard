@@ -15,7 +15,7 @@ import Particleboard
 public class SBSceneManager : SBViewDelegate {
     
     /// The main SKView of the game
-    let view : SKView
+    weak var view : SKView?
     
     /// This holds on to the loading scene and keeps it permanenty cached. Hard coded to Loading.sks currently.
     public let loadingScene : SKScene
@@ -53,30 +53,30 @@ public class SBSceneManager : SBViewDelegate {
         // This is specifically an entire scene cached, not just the textures
         if let scene = self.sceneCache[sceneObj.name] {
             self.currentScene = sceneObj
-            self.presentScene(scene, sceneObj: sceneObj)
+            self.presentScene(scene: scene, sceneObj: sceneObj)
         }
             // else show loading screen and fully load scene. clear cache if needed
         else {
             // Change cache if major scene change, in which case set bool to preload all related scene assets
             var fullReset : Bool = false
-            if(self.clearSceneCacheIfNecessary(sceneObj)) {
+            if(self.clearSceneCacheIfNecessary(sceneObj: sceneObj)) {
                 fullReset = true
-                self.presentScene(self.loadingScene, sceneObj: nil)
+                self.presentScene(scene: self.loadingScene, sceneObj: nil)
                 
             }
             // Load assets for this scene, and present it
-            sceneObj.classType.loadAndCacheSceneAssets(sceneObj.atlases) {
+            sceneObj.classType.loadAndCacheSceneAssets(atlasNames: sceneObj.atlases) {
                 sceneObj.classType.loadSceneAssetsWithCompletionHandler() {
                     if let scene = sceneObj.classType.init(fileNamed: sceneObj.name) {
                         scene.userData = sceneObj.userData
                         scene.sbViewDelegate = self
                         self.currentScene = sceneObj
-                        self.presentScene(scene, sceneObj: sceneObj)
+                        self.presentScene(scene: scene, sceneObj: sceneObj)
                         
                         /// We actually do the preload of related scene assets here so that it doesn't happen in background while
                         /// main assets are loading. This happens after, which will prevent duplicate loading of atlases
                         if(fullReset) {
-                            self.preloadRelatedScenesInBackground(sceneObj)
+                            self.preloadRelatedScenesInBackground(sceneObj: sceneObj)
                         }
                     }
             }
@@ -94,37 +94,37 @@ public class SBSceneManager : SBViewDelegate {
         //skView.showsDrawCount = true
         
         /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView.ignoresSiblingOrder = true
+        //skView.ignoresSiblingOrder = true
         
         /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .AspectFill
+        scene.scaleMode = .aspectFill
         
         /* Remove gestures from last scene */
         self.removeGestureRecognizer()
         
         /// Cut the framerate down to 30 FPS
-        skView.frameInterval = 1
+        //skView.frameInterval = 1
         if(sceneObj?.transition != nil) {
             let transition = sceneObj!.transition!
             transition.pausesIncomingScene = false
             transition.pausesOutgoingScene = false
-            skView.presentScene(scene, transition:transition)
+            skView?.presentScene(scene, transition:transition)
         }
         else {
-            skView.presentScene(scene)
+            skView?.presentScene(scene)
         }
     }
     
     /// Public facing method to play a scene. Pass in the next SBSceneContainer to get that scene to load.
     public func sceneDidFinish(nextScene:SBSceneContainer) {
-        self.loadAndPresentScene(nextScene)
+        self.loadAndPresentScene(sceneObj: nextScene)
     }
     
     /// Method to remove all gesture recognizers from the view
     public func removeGestureRecognizer() {
-        if self.view.gestureRecognizers != nil {
-            for gesture in self.view.gestureRecognizers! {
-                self.view.removeGestureRecognizer(gesture)
+        if self.view?.gestureRecognizers != nil {
+            for gesture in self.view!.gestureRecognizers! {
+                self.view!.removeGestureRecognizer(gesture)
             }
         }
     }
@@ -134,13 +134,13 @@ public class SBSceneManager : SBViewDelegate {
     internal func clearSceneCacheIfNecessary(sceneObj:SBSceneContainer) -> Bool {
         // If major scene change, clear cache, or if first scene to be shown
         if((sceneObj.category != self.currentScene?.category && sceneObj.category != SBSceneContainer.SceneGroup.Misc) || self.currentScene == nil) {
-            self.sceneCache.removeAll(keepCapacity: false)
+            self.sceneCache.removeAll(keepingCapacity: false)
             
             var tempCache = Dictionary<String, SKTextureAtlas>()
             
             /// Copy any items needed for next scene into temp cache
             for key in sceneObj.atlases {
-                if let cachedVersion = SBCache.sharedInstance.objectForKey(key) as? SKTextureAtlas {
+                if let cachedVersion = SBCache.sharedInstance.object(forKey: key) as? SKTextureAtlas {
                     tempCache[key] = cachedVersion
                 }
             }
@@ -150,7 +150,7 @@ public class SBSceneManager : SBViewDelegate {
             
             /// Populate cache with the temp cache objects that we know we need for next scene
             for (key, value) in tempCache {
-                log.info("\(key) was already cached and the next scene needs it. Keep it -- don't delete it.")
+                print("\(key) was already cached and the next scene needs it. Keep it -- don't delete it.")
                 SBCache.sharedInstance.setObject(value, forKey: key)
             }
 
@@ -166,8 +166,8 @@ public class SBSceneManager : SBViewDelegate {
         if(sceneObj.category.loadGroup) {
             for (_, scene) in self.scenes {
                 if(scene.name != sceneObj.name && scene.category == sceneObj.category) {
-                    scene.classType.loadAndCacheSceneAssets(scene.atlases) {
-                        scene.classType.loadSceneAssetsWithCompletionHandler({})
+                    scene.classType.loadAndCacheSceneAssets(atlasNames: scene.atlases) {
+                        scene.classType.loadSceneAssetsWithCompletionHandler(handler: {})
                     }
                 }
             }

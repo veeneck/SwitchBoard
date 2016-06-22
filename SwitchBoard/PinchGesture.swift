@@ -16,11 +16,11 @@ public class PinchGesture : UIPinchGestureRecognizer {
     func handlePinch(recognizer:UIPinchGestureRecognizer, target:SKCameraNode) {
         switch(recognizer.state) {
             
-        case UIGestureRecognizerState.Changed:
-            self.handlePinchChanged(recognizer, target: target)
+        case UIGestureRecognizerState.changed:
+            self.handlePinchChanged(recognizer: recognizer, target: target)
             
-        case UIGestureRecognizerState.Ended:
-            self.handlePinchEnded(recognizer, target: target)
+        case UIGestureRecognizerState.ended:
+            self.handlePinchEnded(recognizer: recognizer, target: target)
             
         default:
             break
@@ -31,19 +31,19 @@ public class PinchGesture : UIPinchGestureRecognizer {
         
         /// Change the scale within bounds. By default, the camera is inverse to the scene, so this first calculation will reverse that effect
         var scale = target.xScale * (1 + (1 - recognizer.scale))
-        scale = self.boundScaleToWindow(scale, target:target)
+        scale = self.boundScaleToWindow(scale: scale, target:target)
         target.setScale(scale)
         recognizer.scale = 1.0
-        self.updateCameraBounds(target)
+        self.updateCameraBounds(target: target)
     }
     
     func handlePinchEnded(recognizer:UIPinchGestureRecognizer, target:SKCameraNode) {
-        self.updateCameraBounds(target)
+        self.updateCameraBounds(target: target)
     }
     
     func updateCameraBounds(target:SKCameraNode) {
         if let scene = target.scene as? SBGameScene {
-            scene.setCameraBounds(scene.cameraBounds)
+            scene.setCameraBounds(offsetBounds: scene.cameraBounds)
         }
     }
     

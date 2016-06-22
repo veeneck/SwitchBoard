@@ -13,7 +13,7 @@ import ReplayKit
 */
 extension SBGameScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate {
     
-    // MARK: Computed Properties
+    /*// MARK: Computed Properties
     
     var screenRecordingToggleEnabled: Bool {
         return true //NSUserDefaults.standardUserDefaults().boolForKey("AppConfiguration.Defaults.screenRecorderEnabledKey")
@@ -113,6 +113,6 @@ extension SBGameScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate
     
     public func previewControllerDidFinish(previewController: RPPreviewViewController) {
         previewViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
+    }*/
 }
 

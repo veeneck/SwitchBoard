@@ -79,9 +79,9 @@ public class SBGameScene : SKScene {
     public func buildWorldLayers() {
         /// world node must be added in .sks file
         var worldNode = SKNode()
-        if let world = self.childNodeWithName("World") {
+        if let world = self.childNode(withName: "World") {
             worldNode = world
-            self.layers.insert(world, atIndex: WorldLayer.World.rawValue)
+            self.layers.insert(world, at: WorldLayer.World.rawValue)
         }
         
         /// Debug will be a child of world, so that they move together
@@ -100,12 +100,12 @@ public class SBGameScene : SKScene {
     /// Add a child node to one of our four hard coded layers.
     public func addChild(node:SKNode, layer:WorldLayer) {
         if(layer == WorldLayer.Debug) {
-            if let debugLayer = self.layers[WorldLayer.World.rawValue].childNodeWithName("DebugLayer") {
+            if let debugLayer = self.layers[WorldLayer.World.rawValue].childNode(withName: "DebugLayer") {
                 debugLayer.addChild(node)
             }
         }
         else if(layer == WorldLayer.PermanentDebug) {
-            if let debugLayer = self.childNodeWithName("PermanentDebugLayer") {
+            if let debugLayer = self.childNode(withName: "PermanentDebugLayer") {
                 debugLayer.addChild(node)
             }
         }
@@ -132,15 +132,15 @@ public class SBGameScene : SKScene {
     
     public func detectPan(recognizer:UIPanGestureRecognizer) {
         let handler = recognizer as! PanGesture
-        if let camera = self.childNodeWithName("Camera") as? SKCameraNode {
-            handler.handlePan(recognizer, target: camera)
+        if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
+            handler.handlePan(recognizer: recognizer, target: camera)
         }
     }
     
     public func detectPinch(recognizer:UIPinchGestureRecognizer) {
         let handler = recognizer as! PinchGesture
-        if let camera = self.childNodeWithName("Camera") as? SKCameraNode {
-            handler.handlePinch(recognizer, target: camera)
+        if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
+            handler.handlePinch(recognizer: recognizer, target: camera)
         }
     }
     
@@ -148,8 +148,8 @@ public class SBGameScene : SKScene {
     
     /// Bind the camera to the size of any node in your scene named "bg" that is a child of "World". This is automaticaly called from functions that change perspective like PinchGesture. You can also call on your own if you manually change the scale of the scene.
     public func setCameraBounds(offsetBounds:CameraBounds) {
-        if let camera = self.childNodeWithName("Camera") as? SKCameraNode,
-            let bg = self.childNodeWithName("World/bg") {
+        if let camera = self.childNode(withName: "Camera") as? SKCameraNode,
+            let bg = self.childNode(withName: "World/bg") {
                 
                 // Find size of scene, and size of bg node which contains all ndoes that make up the board
                 let scaledSize = CGSize(width: size.width * camera.xScale, height: size.height * camera.yScale)
@@ -191,14 +191,14 @@ public class SBGameScene : SKScene {
     
     /// Each scene should override this to preload necessary assets
     public class func loadSceneAssetsWithCompletionHandler(handler:()->()) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+        DispatchQueue.global(attributes: .qosBackground).async {
             
             // Call and load shared assets here
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async {
                 handler()
-            })
-        })
+            }
+        }
     }
     
     /// Scenes internally call this so that all preloading is handled by this one function
@@ -207,29 +207,29 @@ public class SBGameScene : SKScene {
     public class func loadAndCacheSceneAssets(atlasNames:Array<String>, handler:()->()) {
         
         /// Filter out items already in cache
-        let uncachedNames = atlasNames.filter({ SBCache.sharedInstance.objectForKey($0) == nil})
+        let uncachedNames = atlasNames.filter({ SBCache.sharedInstance.object(forKey: $0) == nil})
         
         /// Build texture array to preload
         var textures = Array<SKTextureAtlas>()
-        for (_, name) in uncachedNames.enumerate() {
+        for (_, name) in uncachedNames.enumerated() {
             textures.append(SKTextureAtlas(named: name))
         }
         
         /// If needed textures, preload them. Otherwise, go straight to handler callback
         if textures.count > 0 {
             SKTextureAtlas.preloadTextureAtlases(textures, withCompletionHandler: {
-                dispatch_async(dispatch_get_main_queue(), {
-                    for (key, name) in uncachedNames.enumerate() {
+                DispatchQueue.main.async {
+                    for (key, name) in uncachedNames.enumerated() {
                         
-                        log.info("\(name) was not in cache, so it was just loaded")
+                        print("\(name) was not in cache, so it was just loaded")
                         SBCache.sharedInstance.setObject(textures[key], forKey: name)
                     }
                     handler()
-                })
+                }
             })
         }
         else {
-            log.info("Everything for this scene was loaded from cache")
+            print("Everything for this scene was loaded from cache")
             handler()
         }
         
@@ -239,13 +239,13 @@ public class SBGameScene : SKScene {
 
     /// Called automatically and will remove nodes and actions. After this, a log line should print indicating the scene
     /// was successfully deallocated. If you don't see the log line, there is probably a memory leak somewhere.
-    override public func willMoveFromView(view: SKView) {
+    override public func willMove(from view: SKView) {
         self.removeAllChildren()
         self.removeAllActions()
     }
     
     deinit {
-        log.warning("\n THIS SCENE WAS REMOVED FROM MEMORY (DEINIT) \n")
+        print("\n THIS SCENE WAS REMOVED FROM MEMORY (DEINIT) \n")
     }
     
     // MARK: Debug Layer
@@ -254,7 +254,7 @@ public class SBGameScene : SKScene {
     /// Instead of keeping tabs of the lines, this just deletes the entire debug layer and recreates it.
     /// TODO: Create DebugNode with extended functionality?
     public func updateDebugLayer() {
-        if let debugLayer = self.layers[WorldLayer.World.rawValue].childNodeWithName("DebugLayer") {
+        if let debugLayer = self.layers[WorldLayer.World.rawValue].childNode(withName: "DebugLayer") {
             debugLayer.removeFromParent()
             
             /// Debug will be a child of world, so that they move together

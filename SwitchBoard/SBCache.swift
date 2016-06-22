@@ -12,7 +12,7 @@ import SpriteKit
 /**
  Preloading texture atlases is often done on multiple threads, so it is tricky to pass around instances of variables. Global variables are messy and inconsistent. So, this singleton can serve as the consisten location of cache objects for this project, and will mainly be used to store a hard refernece to texture atlases.
 */
-public class SBCache : NSCache {
+public class SBCache : Cache<AnyObject, AnyObject> {
     
     public static let sharedInstance = SBCache()
     
@@ -21,13 +21,13 @@ public class SBCache : NSCache {
     override init() {
         super.init()
         
-        observer = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidReceiveMemoryWarningNotification, object: nil, queue: nil) { [unowned self] notification in
+        observer = NotificationCenter.default().addObserver(forName: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil, queue: nil) { [unowned self] notification in
             self.removeAllObjects()
         }
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(observer)
+        NotificationCenter.default().removeObserver(observer)
     }
     
 }
