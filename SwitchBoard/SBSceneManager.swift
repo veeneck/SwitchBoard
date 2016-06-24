@@ -48,22 +48,26 @@ public class SBSceneManager : SBViewDelegate {
     /// The standard method to load a scene and then present it
     internal func loadAndPresentScene(sceneObj:SBSceneContainer) {
         
-        // If the scene is cached, set it to current scene and present it
-        // This is specifically an entire scene cached, not just the textures
+        /// If the scene is cached, set it to current scene and present it
+        /// This is specifically an entire scene cached, not just the textures
         if let scene = self.sceneCache[sceneObj.name] {
             self.currentScene = sceneObj
             self.presentScene(scene: scene, sceneObj: sceneObj)
         }
-            // else show loading screen and fully load scene. clear cache if needed
+        /// else show loading screen and fully load scene. clear cache if needed
         else {
-            // Change cache if major scene change, in which case set bool to preload all related scene assets
+            /// Change cache if major scene change, in which case set bool to preload all related scene assets
             var fullReset : Bool = false
             if(self.clearSceneCacheIfNecessary(sceneObj: sceneObj)) {
                 fullReset = true
-                self.presentScene(scene: self.loadingScene, sceneObj: nil)
+                
+                /// Show loading screen on every load except for inital game startup
+                if self.currentScene != nil {
+                    self.presentScene(scene: self.loadingScene, sceneObj: nil)
+                }
                 
             }
-            // Load assets for this scene, and present it
+            /// Load assets for this scene, and present it
             sceneObj.classType.loadAndCacheSceneAssets(atlasNames: sceneObj.atlases) {
                 sceneObj.classType.loadSceneAssetsWithCompletionHandler() {
                     if let scene = sceneObj.classType.init(fileNamed: sceneObj.name) {
@@ -87,13 +91,13 @@ public class SBSceneManager : SBViewDelegate {
     internal func presentScene(scene:SKScene, sceneObj:SBSceneContainer?) {
         // Configure the view.
         let skView = self.view
-        //skView.showsFPS = true
+        skView?.showsFPS = true
         //skView.showsNodeCount = true
         //skView.showsPhysics = true
         //skView.showsDrawCount = true
         
         /* Sprite Kit applies additional optimizations to improve rendering performance */
-        //skView.ignoresSiblingOrder = true
+        skView?.ignoresSiblingOrder = true
         
         /* Set the scale mode to scale to fit the window */
         scene.scaleMode = .aspectFill
@@ -103,9 +107,11 @@ public class SBSceneManager : SBViewDelegate {
         
         /// Cut the framerate down to 30 FPS
         //skView.frameInterval = 1
+        skView?.preferredFramesPerSecond = 60
+        
         if(sceneObj?.transition != nil) {
             let transition = sceneObj!.transition!
-            transition.pausesIncomingScene = false
+            transition.pausesIncomingScene = true
             transition.pausesOutgoingScene = false
             skView?.presentScene(scene, transition:transition)
         }
@@ -133,7 +139,7 @@ public class SBSceneManager : SBViewDelegate {
     // MARK: Caching
     
     internal func clearSceneCacheIfNecessary(sceneObj:SBSceneContainer) -> Bool {
-        // If major scene change, clear cache, or if first scene to be shown
+        /// If major scene change, clear cache, or if first scene to be shown
         if((sceneObj.category != self.currentScene?.category && sceneObj.category != SBSceneContainer.SceneGroup.Misc) || self.currentScene == nil) {
             self.sceneCache.removeAll(keepingCapacity: false)
             
