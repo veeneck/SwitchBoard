@@ -92,7 +92,7 @@ public class SBSceneManager : SBViewDelegate {
         // Configure the view.
         let skView = self.view
         skView?.showsFPS = true
-        //skView.showsNodeCount = true
+        skView?.showsNodeCount = true
         //skView.showsPhysics = true
         //skView.showsDrawCount = true
         
@@ -108,7 +108,7 @@ public class SBSceneManager : SBViewDelegate {
         /// Cut the framerate down to 30 FPS
         //skView.frameInterval = 1
         skView?.preferredFramesPerSecond = 60
-        
+                
         if(sceneObj?.transition != nil) {
             let transition = sceneObj!.transition!
             transition.pausesIncomingScene = true

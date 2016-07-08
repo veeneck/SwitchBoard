@@ -22,14 +22,14 @@ public class SBCache : Cache<AnyObject, AnyObject> {
         super.init()
         
         #if os(iOS)
-        observer = NotificationCenter.default().addObserver(forName: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil, queue: nil) { [unowned self] notification in
+        observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil, queue: nil) { [unowned self] notification in
             self.removeAllObjects()
         }
         #endif
     }
     
     deinit {
-        NotificationCenter.default().removeObserver(observer)
+        NotificationCenter.default.removeObserver(observer)
     }
     
 }
