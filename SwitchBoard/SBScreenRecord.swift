@@ -42,7 +42,7 @@ extension SBGameScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate
     public func stopScreenRecordingWithHandler(handler:(() -> Void)) {
         let sharedRecorder = RPScreenRecorder.shared()
 
-        sharedRecorder.stopRecording() { (previewViewController: RPPreviewViewController?, error: NSError?) in
+        sharedRecorder.stopRecording() { (previewViewController: RPPreviewViewController?, error: Error?) in
             if let error = error {
                 // If an error has occurred, display an alert to the user.
                 self.showScreenRecordingAlert(message: error.localizedDescription)

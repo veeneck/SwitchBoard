@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import GameplayKit
 #if os(iOS)
 import Particleboard
 import ReplayKit
@@ -126,12 +127,12 @@ public class SBGameScene : SKScene {
     /// Call this to register pinch and pan gestures which will be tied to "World/bg" in your node tree. See `setCameraBounds`.
     public func registerGestures() {
         
-        /// Pan setup
-        let panRecognizer = PanGesture(target:self, action:"detectPan:")
+        /// Pan setupaction: #selector(gameViewController.cardTapped(_:))
+        let panRecognizer = PanGesture(target:self, action:#selector(self.detectPan(recognizer:)))
         self.view!.addGestureRecognizer(panRecognizer)
         
         /// Pinc to zoom setup
-        let pinchRecognizer = PinchGesture(target:self, action:"detectPinch:")
+        let pinchRecognizer = PinchGesture(target:self, action:#selector(self.detectPinch(recognizer:)))
         self.view!.addGestureRecognizer(pinchRecognizer)
         
     }
@@ -199,8 +200,7 @@ public class SBGameScene : SKScene {
     
     /// Each scene should override this to preload necessary assets
     public class func loadSceneAssetsWithCompletionHandler(handler:()->()) {
-        DispatchQueue.global(attributes: .qosBackground).async {
-            
+        DispatchQueue.global(qos: .background).async {
             // Call and load shared assets here
             
             DispatchQueue.main.async {
