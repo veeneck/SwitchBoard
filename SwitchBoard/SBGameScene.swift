@@ -26,7 +26,7 @@ import ParticleboardOS
  
  **Note**: This project is still in development, so some items / implementations aren't flexible. If you encounter problems, the source is heavily documented.
 */
-public class SBGameScene : SKScene {
+open class SBGameScene : SKScene {
     
     /**
      Layers representing SKNodes in the scene. Currently, this is hard coded to 4 groups as `enums` can't be extended or modifier. For true open sourcing, this needs to be rethought and layers need to be something that you can register.
@@ -81,7 +81,7 @@ public class SBGameScene : SKScene {
     
     /// This can be used for any game, but is somewhat limited since it only supports 4 layers. Constructs the 4 layers and adds them to the scene
     /// in addition to storing locally under `layers` for quick lookup. Goal is to avoid using `childNodeWithName` when adding or accessing elements.
-    public func buildWorldLayers() {
+    open func buildWorldLayers() {
         /// world node must be added in .sks file
         var worldNode = SKNode()
         if let world = self.childNode(withName: "World") {
@@ -199,7 +199,7 @@ public class SBGameScene : SKScene {
     
     
     /// Each scene should override this to preload necessary assets
-    public class func loadSceneAssetsWithCompletionHandler(handler:()->()) {
+    public class func loadSceneAssetsWithCompletionHandler(handler: @escaping()->()) {
         DispatchQueue.global(qos: .background).async {
             // Call and load shared assets here
             
@@ -212,10 +212,10 @@ public class SBGameScene : SKScene {
     /// Scenes internally call this so that all preloading is handled by this one function
     /// See hack: http://stackoverflow.com/questions/22480962/nsgenericexception-reason-collection-nsconcretemaptable-xxx
     /// Can get rid of the dispatch_async if preload is fixed
-    public class func loadAndCacheSceneAssets(atlasNames:Array<String>, handler:()->()) {
+    public class func loadAndCacheSceneAssets(atlasNames:Array<String>, handler:@escaping()->()) {
         
         /// Filter out items already in cache
-        let uncachedNames = atlasNames.filter({ SBCache.sharedInstance.object(forKey: $0) == nil})
+        let uncachedNames = atlasNames.filter({ SBCache.sharedInstance.object(forKey: $0 as AnyObject) == nil})
         
         /// Build texture array to preload
         var textures = Array<SKTextureAtlas>()
@@ -230,7 +230,7 @@ public class SBGameScene : SKScene {
                     for (key, name) in uncachedNames.enumerated() {
                         
                         print("\(name) was not in cache, so it was just loaded")
-                        SBCache.sharedInstance.setObject(textures[key], forKey: name)
+                        SBCache.sharedInstance.setObject(textures[key], forKey: name as AnyObject)
                     }
                     handler()
                 }
@@ -247,7 +247,7 @@ public class SBGameScene : SKScene {
 
     /// Called automatically and will remove nodes and actions. After this, a log line should print indicating the scene
     /// was successfully deallocated. If you don't see the log line, there is probably a memory leak somewhere.
-    override public func willMove(from view: SKView) {
+    override open func willMove(from view: SKView) {
         self.removeAllChildren()
         self.removeAllActions()
     }

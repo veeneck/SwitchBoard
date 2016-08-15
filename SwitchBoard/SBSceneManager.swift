@@ -149,7 +149,7 @@ public class SBSceneManager : SBViewDelegate {
             
             /// Copy any items needed for next scene into temp cache
             for key in sceneObj.atlases {
-                if let cachedVersion = SBCache.sharedInstance.object(forKey: key) as? SKTextureAtlas {
+                if let cachedVersion = SBCache.sharedInstance.object(forKey: key as AnyObject) as? SKTextureAtlas {
                     tempCache[key] = cachedVersion
                 }
             }
@@ -160,7 +160,7 @@ public class SBSceneManager : SBViewDelegate {
             /// Populate cache with the temp cache objects that we know we need for next scene
             for (key, value) in tempCache {
                 print("\(key) was already cached and the next scene needs it. Keep it -- don't delete it.")
-                SBCache.sharedInstance.setObject(value, forKey: key)
+                SBCache.sharedInstance.setObject(value, forKey: key as AnyObject)
             }
 
             

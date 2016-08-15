@@ -99,7 +99,7 @@ extension SBGameScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate
     
     // MARK: RPScreenRecorderDelegate
     
-    public func screenRecorder(_ screenRecorder: RPScreenRecorder, didStopRecordingWithError error: NSError, previewViewController: RPPreviewViewController?) {
+    @nonobjc public func screenRecorder(_ screenRecorder: RPScreenRecorder, didStopRecordingWithError error: NSError, previewViewController: RPPreviewViewController?) {
         // Display the error the user to alert them that the recording failed.
         showScreenRecordingAlert(message: error.localizedDescription)
         
