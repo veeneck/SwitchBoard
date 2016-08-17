@@ -21,6 +21,8 @@
 		E70D18731C26147500BFD600 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E70D18711C26147500BFD600 /* README.md */; };
 		E73F51C81C3C5D400075A632 /* SBSceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F51C71C3C5D3F0075A632 /* SBSceneManager.swift */; };
 		E73F51CA1C3DAA8F0075A632 /* SBCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F51C91C3DAA8F0075A632 /* SBCache.swift */; };
+		E799F3C21D64D5C30056B313 /* SBSubScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799F3C11D64D5C30056B313 /* SBSubScene.swift */; };
+		E799F3C31D64D5C30056B313 /* SBSubScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799F3C11D64D5C30056B313 /* SBSubScene.swift */; };
 		E7CBDB051D1B20F500FE9E66 /* SwitchBoardOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E7CBDB041D1B20F500FE9E66 /* SwitchBoardOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7CBDB0C1D1B20F600FE9E66 /* SwitchBoardOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CBDB021D1B20F500FE9E66 /* SwitchBoardOS.framework */; };
 		E7CBDB111D1B20F600FE9E66 /* SwitchBoardOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBDB101D1B20F600FE9E66 /* SwitchBoardOSTests.swift */; };
@@ -67,6 +69,7 @@
 		E70D18711C26147500BFD600 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E73F51C71C3C5D3F0075A632 /* SBSceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBSceneManager.swift; sourceTree = "<group>"; };
 		E73F51C91C3DAA8F0075A632 /* SBCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBCache.swift; sourceTree = "<group>"; };
+		E799F3C11D64D5C30056B313 /* SBSubScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBSubScene.swift; sourceTree = "<group>"; };
 		E7CBDB021D1B20F500FE9E66 /* SwitchBoardOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwitchBoardOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CBDB041D1B20F500FE9E66 /* SwitchBoardOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchBoardOS.h; sourceTree = "<group>"; };
 		E7CBDB061D1B20F500FE9E66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -139,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				E70D18681C2607F800BFD600 /* SBGameScene.swift */,
+				E799F3C11D64D5C30056B313 /* SBSubScene.swift */,
 				E70D186A1C2609E700BFD600 /* SBScreenRecord.swift */,
 				E70D186E1C260B5F00BFD600 /* SBSceneContainer.swift */,
 				E70D186C1C260B1500BFD600 /* SBViewDelegate.swift */,
@@ -387,6 +391,7 @@
 				E70D18631C26074F00BFD600 /* PinchGesture.swift in Sources */,
 				E70D18621C26074F00BFD600 /* PanGesture.swift in Sources */,
 				E73F51CA1C3DAA8F0075A632 /* SBCache.swift in Sources */,
+				E799F3C21D64D5C30056B313 /* SBSubScene.swift in Sources */,
 				E70D18731C26147500BFD600 /* README.md in Sources */,
 				E70D18691C2607F800BFD600 /* SBGameScene.swift in Sources */,
 				E73F51C81C3C5D400075A632 /* SBSceneManager.swift in Sources */,
@@ -409,6 +414,7 @@
 			files = (
 				E7CBDB441D1B23F200FE9E66 /* SBSceneManager.swift in Sources */,
 				E7CBDB491D1B24E700FE9E66 /* SBGameScene.swift in Sources */,
+				E799F3C31D64D5C30056B313 /* SBSubScene.swift in Sources */,
 				E7CBDB451D1B23F400FE9E66 /* SBCache.swift in Sources */,
 				E7CBDB431D1B23EF00FE9E66 /* SBViewDelegate.swift in Sources */,
 				E7CBDB421D1B23EC00FE9E66 /* SBSceneContainer.swift in Sources */,
@@ -726,6 +732,7 @@
 				E7CBDB141D1B20F600FE9E66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E7CBDB181D1B20F600FE9E66 /* Build configuration list for PBXNativeTarget "SwitchBoardOSTests" */ = {
 			isa = XCConfigurationList;
@@ -734,6 +741,7 @@
 				E7CBDB161D1B20F600FE9E66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

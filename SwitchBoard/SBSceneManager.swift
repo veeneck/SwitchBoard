@@ -93,8 +93,8 @@ public class SBSceneManager : SBViewDelegate {
     internal func presentScene(scene:SKScene, sceneObj:SBSceneContainer?) {
         // Configure the view.
         let skView = self.view
-        skView?.showsFPS = true
-        skView?.showsNodeCount = true
+        //skView?.showsFPS = true
+        //skView?.showsNodeCount = true
         //skView.showsPhysics = true
         //skView.showsDrawCount = true
         
