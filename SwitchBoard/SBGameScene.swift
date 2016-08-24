@@ -212,7 +212,7 @@ open class SBGameScene : SKScene {
     /// Scenes internally call this so that all preloading is handled by this one function
     /// See hack: http://stackoverflow.com/questions/22480962/nsgenericexception-reason-collection-nsconcretemaptable-xxx
     /// Can get rid of the dispatch_async if preload is fixed
-    public class func loadAndCacheSceneAssets(atlasNames:Array<String>, handler:@escaping()->()) {
+    open class func loadAndCacheSceneAssets(atlasNames:Array<String>, handler:@escaping()->()) {
         
         /// Filter out items already in cache
         let uncachedNames = atlasNames.filter({ SBCache.sharedInstance.object(forKey: $0 as AnyObject) == nil})
