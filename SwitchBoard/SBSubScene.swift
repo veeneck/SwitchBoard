@@ -93,15 +93,16 @@ open class SBSubScene {
             let move = SKAction.move(to:CGPoint(x: 1365, y: 768), duration: Animation.movementTime)
             move.timingMode = .easeInEaseOut
             let rotate = SKAction.rotate(toAngle: 0, duration: Animation.movementTime)
-            self.sceneNode?.run(SKAction.sequence([SKAction.wait(forDuration: Animation.delayTime),
-                                                   SKAction.group([move, rotate, self.slideSound])])) {
+            self.sceneNode?.run(SKAction.group([move, rotate])) {
                                                     
-                                                    if self.addedToScene {
-                                                        self.didReturn(to: self.parentScene!.view!)
-                                                    }
-                                                    else {
-                                                        self.didMove(to: self.parentScene!.view!)
-                                                    }
+                if self.addedToScene {
+                    self.didReturn(to: self.parentScene!.view!)
+                }
+                else {
+                    self.didMove(to: self.parentScene!.view!)
+                    self.addedToScene = true
+                }
+                                                    
                                                 
             }
         }
@@ -111,9 +112,9 @@ open class SBSubScene {
             }
             else {
                 self.didMove(to: self.parentScene!.view!)
+                self.addedToScene = true
             }
         }
-        self.addedToScene = true
     }
     
     open func animateOutOfView() {

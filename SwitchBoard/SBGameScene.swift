@@ -228,8 +228,7 @@ open class SBGameScene : SKScene {
             SKTextureAtlas.preloadTextureAtlases(textures, withCompletionHandler: {
                 DispatchQueue.main.async {
                     for (key, name) in uncachedNames.enumerated() {
-                        
-                        print("\(name) was not in cache, so it was just loaded")
+                        logged("\(name) was not in cache, so it was just loaded", file: #file, level: .Info)
                         SBCache.sharedInstance.setObject(textures[key], forKey: name as AnyObject)
                     }
                     handler()
@@ -237,7 +236,7 @@ open class SBGameScene : SKScene {
             })
         }
         else {
-            print("Everything for this scene was loaded from cache")
+            logged("Everything for this scene was loaded from cache", file: #file, level: .Info)
             handler()
         }
         
@@ -253,7 +252,7 @@ open class SBGameScene : SKScene {
     }
     
     deinit {
-        print("\n THIS SCENE WAS REMOVED FROM MEMORY (DEINIT) \n")
+        logged("\(NSStringFromClass(type(of: self))) SCENE WAS REMOVED FROM MEMORY (DEINIT) \n", file: #file, level: .Important, newline:true)
     }
     
     // MARK: Debug Layer
