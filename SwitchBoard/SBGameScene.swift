@@ -199,7 +199,7 @@ open class SBGameScene : SKScene {
     
     
     /// Each scene should override this to preload necessary assets
-    public class func loadSceneAssetsWithCompletionHandler(handler: @escaping()->()) {
+    open class func loadSceneAssetsWithCompletionHandler(handler: @escaping()->()) {
         DispatchQueue.global(qos: .background).async {
             // Call and load shared assets here
             
@@ -211,7 +211,7 @@ open class SBGameScene : SKScene {
     
     /// Scenes internally call this so that all preloading is handled by this one function
     /// See hack: http://stackoverflow.com/questions/22480962/nsgenericexception-reason-collection-nsconcretemaptable-xxx
-    /// Can get rid of the dispatch_async if preload is fixed
+    /// NOTE: This isnt quite async ... if called during a scne transition, that SKTransition will lag
     open class func loadAndCacheSceneAssets(atlasNames:Array<String>, handler:@escaping()->()) {
         
         /// Filter out items already in cache
@@ -226,13 +226,11 @@ open class SBGameScene : SKScene {
         /// If needed textures, preload them. Otherwise, go straight to handler callback
         if textures.count > 0 {
             SKTextureAtlas.preloadTextureAtlases(textures, withCompletionHandler: {
-                DispatchQueue.main.async {
                     for (key, name) in uncachedNames.enumerated() {
                         logged("\(name) was not in cache, so it was just loaded", file: #file, level: .Info)
                         SBCache.sharedInstance.setObject(textures[key], forKey: name as AnyObject)
                     }
                     handler()
-                }
             })
         }
         else {

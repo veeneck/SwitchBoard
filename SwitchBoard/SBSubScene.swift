@@ -36,7 +36,7 @@ open class SBSubScene {
     }
     
     /// Sound to play when the card is animated
-    var slideSound : SKAction {
+    public var slideSound : SKAction {
         return PBSound.sharedInstance.getSKActionForSound(fileName: "cardboard_slide.wav")
     }
     
@@ -91,9 +91,9 @@ open class SBSubScene {
     open func animateIntoView() {
         if self.animationPrepped {
             let move = SKAction.move(to:CGPoint(x: 1365, y: 768), duration: Animation.movementTime)
-            move.timingMode = .easeInEaseOut
+            move.timingMode = .easeOut
             let rotate = SKAction.rotate(toAngle: 0, duration: Animation.movementTime)
-            self.sceneNode?.run(SKAction.group([move, rotate])) {
+            self.sceneNode?.run(SKAction.group([move, rotate, slideSound])) {
                                                     
                 if self.addedToScene {
                     self.didReturn(to: self.parentScene!.view!)
@@ -124,7 +124,7 @@ open class SBSubScene {
     }
     
     open func hideFromView() {
-        self.sceneNode?.position = CGPoint(x:1700, y:2700)
+        self.sceneNode?.position = CGPoint(x:1700, y:2900)
         self.sceneNode?.zRotation = -0.1
     }
 

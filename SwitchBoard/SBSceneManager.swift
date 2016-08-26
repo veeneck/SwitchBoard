@@ -23,7 +23,7 @@ public class SBSceneManager : SBViewDelegate {
     weak var view : SKView?
     
     /// This holds on to the loading scene and keeps it permanenty cached. Hard coded to Loading.sks currently.
-    public let loadingScene : SKScene
+    public var loadingScene : SBGameScene? = nil
     
     /// Manually called by individual scenes when they want to maintain state the next time they are displayed.
     var sceneCache = Dictionary<String, SBGameScene>()
@@ -39,7 +39,6 @@ public class SBSceneManager : SBViewDelegate {
     /// Requires a view to initialize. Won't present anything on init. Instead, SBSceneContainers must be registered, and `sceneDidFinish` must be called with the initial scene to view.
     public init(view:SKView) {
         self.view = view
-        self.loadingScene = SKScene(fileNamed:"Loading")!
     }
     
     // MARK: Registering Scenes
@@ -47,6 +46,12 @@ public class SBSceneManager : SBViewDelegate {
     /// Main way to add SBSceneContainers to the pool of available scenes.
     public func registerScene(key:String, scene:SBSceneContainer) {
         self.scenes[key] = scene
+    }
+    
+    public func preloadLoadingScene() {
+        if let sceneObj = self.scenes["Loading"] {
+            self.loadingScene = sceneObj.classType.init(fileNamed: sceneObj.name)
+        }
     }
     
     // MARK: Loading Scenes
@@ -65,68 +70,90 @@ public class SBSceneManager : SBViewDelegate {
         else {
             /// Change cache if major scene change, in which case set bool to preload all related scene assets
             var fullReset : Bool = false
-            if(self.clearSceneCacheIfNecessary(sceneObj: sceneObj)) {
+            if(self.clearSceneCacheIfNecessary(sceneObj: sceneObj) && self.loadingScene != nil) {
                 fullReset = true
                 
                 logged("Full wipe during scene transtion -- show loading screen", file:#file, level:.Debug)
+                
                 /// Show loading screen on every load except for inital game startup
                 if self.currentScene != nil {
                     logged("presenting loading screen", file:#file, level:.Debug)
-                    self.presentScene(scene: self.loadingScene, sceneObj: nil)
+                    
+                    // NOTE: Using cached scene doesn't reliably show for some reason in iOS10 beta. 
+                    // So for now we're reloading the loading scene each time it needs to be displayed.
+                    ///self.presentScene(scene: SKScene(fileNamed:"Loading")!, sceneObj: SBSceneContainer(classType: SBGameScene.self, name: "Loading", transition: SKTransition.moveIn(with: .down, duration: 1), preloadable: false, category: .Misc, atlases: []))
+                    self.presentScene(scene: self.loadingScene!, sceneObj: self.scenes["Loading"])
+
                 }
                 
             }
-            /// Load assets for this scene, and present it
-            sceneObj.classType.loadAndCacheSceneAssets(atlasNames: sceneObj.atlases) {
-                sceneObj.classType.loadSceneAssetsWithCompletionHandler() {
-                    
-                    if let scene = sceneObj.classType.init(fileNamed: sceneObj.name) {
-                        scene.userData = sceneObj.userData
-                        scene.sbViewDelegate = self
-                        self.currentScene = sceneObj
-                        self.presentScene(scene: scene, sceneObj: sceneObj)
-                        
-                        /// We actually do the preload of related scene assets here so that it doesn't happen in background while
-                        /// main assets are loading. This happens after, which will prevent duplicate loading of atlases
-                        if(fullReset) {
-                            self.preloadRelatedScenesInBackground(sceneObj: sceneObj)
+            
+            var delay = 0
+            if fullReset == true {
+                delay = 2
+            }
+            
+            Time.delay(delay: Double(delay)) {
+                /// Load assets for this scene, and present it
+                sceneObj.classType.loadAndCacheSceneAssets(atlasNames: sceneObj.atlases) {
+                    sceneObj.classType.loadSceneAssetsWithCompletionHandler() {
+
+                        if let scene = sceneObj.classType.init(fileNamed: sceneObj.name) {
+                            scene.userData = sceneObj.userData
+                            scene.sbViewDelegate = self
+                            self.currentScene = sceneObj
+                            print("Here")
+                            Time.delay(delay: Double(delay)) {
+                                print("but not here")
+                                self.presentScene(scene: scene, sceneObj: sceneObj)
+                            }
+                            
+                            /// We actually do the preload of related scene assets here so that it doesn't happen in background while
+                            /// main assets are loading. This happens after, which will prevent duplicate loading of atlases
+                            if(fullReset) {
+                                ///self.preloadRelatedScenesInBackground(sceneObj: sceneObj)
+                            }
                         }
                     }
-            }
-            }
+                }
+                }
         }
         
     }
     
     internal func presentScene(scene:SKScene, sceneObj:SBSceneContainer?) {
         // Configure the view.
-        let skView = self.view
-        //skView?.showsFPS = true
-        //skView?.showsNodeCount = true
-        //skView.showsPhysics = true
-        //skView.showsDrawCount = true
-        
-        /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView?.ignoresSiblingOrder = true
-        
-        /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .aspectFill
-        
-        /* Remove gestures from last scene */
-        self.removeGestureRecognizer()
-        
-        /// Cut the framerate down to 30 FPS
-        //skView.frameInterval = 1
-        skView?.preferredFramesPerSecond = 60
-                
-        if(sceneObj?.transition != nil) {
-            let transition = sceneObj!.transition!
-            transition.pausesIncomingScene = true
-            transition.pausesOutgoingScene = false
-            skView?.presentScene(scene, transition:transition)
+        if let skView = self.view {
+            //skView?.showsFPS = true
+            //skView?.showsNodeCount = true
+            //skView.showsPhysics = true
+            //skView.showsDrawCount = true
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .aspectFill
+            
+            /* Remove gestures from last scene */
+            self.removeGestureRecognizer()
+            
+            /// Cut the framerate down to 30 FPS
+            //skView.frameInterval = 1
+            skView.preferredFramesPerSecond = 60
+                                
+            if(sceneObj?.transition != nil) {
+                let transition = sceneObj!.transition!
+                transition.pausesIncomingScene = true
+                transition.pausesOutgoingScene = false
+                skView.presentScene(scene, transition:transition)
+            }
+            else {
+                skView.presentScene(scene)
+            }
         }
         else {
-            skView?.presentScene(scene)
+            logged("Lost handle on skView\n", file:#file, level:.Error, newline:true)
         }
     }
     
