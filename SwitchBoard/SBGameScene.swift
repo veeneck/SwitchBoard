@@ -160,7 +160,7 @@ open class SBGameScene : SKScene {
         if let camera = self.childNode(withName: "Camera") as? SKCameraNode,
             let bg = self.childNode(withName: "World/bg") {
                 
-                // Find size of scene, and size of bg node which contains all ndoes that make up the board
+                /// Find size of scene, and size of bg node which contains all ndoes that make up the board
                 let scaledSize = CGSize(width: size.width * camera.xScale, height: size.height * camera.yScale)
                 var bgSize  = self.bgSizeCache
                 if bgSize == nil {
@@ -168,7 +168,7 @@ open class SBGameScene : SKScene {
                     self.bgSizeCache = bgSize
                 }
                 
-                /*
+                /**
                 Work out how far within this rectangle to constrain the camera.
                 We want to stop the camera when we get within 0pts of the edge of the screen,
                 unless the level is so small that this inset would be outside of the level.
@@ -176,10 +176,10 @@ open class SBGameScene : SKScene {
                 let xInset = min((scaledSize.width / 2), bgSize!.width / 2)
                 let yInset = min((scaledSize.height / 2), bgSize!.height / 2)
                 
-                // Use these insets to create a smaller inset rectangle within which the camera must stay.
+                /// Use these insets to create a smaller inset rectangle within which the camera must stay.
                 let insetContentRect = bgSize!.insetBy(dx: xInset, dy: yInset)
                 
-                // Define an `SKRange` for each of the x and y axes to stay within the inset rectangle.
+                /// Define an `SKRange` for each of the x and y axes to stay within the inset rectangle.
                 let xRange = SKRange(
                     lowerLimit: insetContentRect.minX - offsetBounds.leftXOffset,
                     upperLimit: insetContentRect.maxX - offsetBounds.rightXOffset)
@@ -187,7 +187,7 @@ open class SBGameScene : SKScene {
                     lowerLimit: insetContentRect.minY - (offsetBounds.lowerYOffset * camera.yScale),
                     upperLimit: insetContentRect.maxY - offsetBounds.upperYOffset)
                 
-                // Constrain the camera within the inset rectangle.
+                /// Constrain the camera within the inset rectangle.
                 let levelEdgeConstraint = SKConstraint.positionX(xRange, y: yRange)
                 levelEdgeConstraint.referenceNode = bg
                 
@@ -214,29 +214,41 @@ open class SBGameScene : SKScene {
     /// NOTE: This isnt quite async ... if called during a scne transition, that SKTransition will lag
     open class func loadAndCacheSceneAssets(atlasNames:Array<String>, handler:@escaping()->()) {
         
-        /// Filter out items already in cache
-        let uncachedNames = atlasNames.filter({ SBCache.sharedInstance.object(forKey: $0 as AnyObject) == nil})
-        
-        /// Build texture array to preload
-        var textures = Array<SKTextureAtlas>()
-        for (_, name) in uncachedNames.enumerated() {
-            textures.append(SKTextureAtlas(named: name))
-        }
-        
-        /// If needed textures, preload them. Otherwise, go straight to handler callback
-        if textures.count > 0 {
-            SKTextureAtlas.preloadTextureAtlases(textures, withCompletionHandler: {
-                    for (key, name) in uncachedNames.enumerated() {
-                        logged("\(name) was not in cache, so it was just loaded", file: #file, level: .Info)
-                        SBCache.sharedInstance.setObject(textures[key], forKey: name as AnyObject)
-                    }
-                    handler()
-            })
-        }
-        else {
-            logged("Everything for this scene was loaded from cache", file: #file, level: .Info)
-            handler()
-        }
+            /// Filter out items already in cache
+            let uncachedNames = atlasNames.filter({ SBCache.sharedInstance.object(forKey: $0 as AnyObject) == nil})
+            
+            /// Build texture array to preload
+            var textures = Array<SKTextureAtlas>()
+            for (_, name) in uncachedNames.enumerated() {
+                textures.append(SKTextureAtlas(named: name))
+                
+            }
+            
+            /// If needed textures, preload them. Otherwise, go straight to handler callback
+            if textures.count > 0 {
+                
+                DispatchQueue.global(qos: .background).async {
+
+                    ///SKTextureAtlas.preloadTextureAtlasesNamed(uncachedNames, withCompletionHandler: { error, atlases in
+                    SKTextureAtlas.preloadTextureAtlases(textures, withCompletionHandler: {
+                        
+                        DispatchQueue.main.async {
+
+                            for (key, name) in uncachedNames.enumerated() {
+                                logged("\(name) was not in cache, so it was just loaded", file: #file, level: .Info)
+                                SBCache.sharedInstance.setObject(textures[key], forKey: name as AnyObject)
+                            }
+                            handler()
+                            
+                        }
+                    })
+                    
+                }
+            }
+            else {
+                logged("Everything for this scene was loaded from cache", file: #file, level: .Info)
+                handler()
+            }
         
     }
     
@@ -245,8 +257,8 @@ open class SBGameScene : SKScene {
     /// Called automatically and will remove nodes and actions. After this, a log line should print indicating the scene
     /// was successfully deallocated. If you don't see the log line, there is probably a memory leak somewhere.
     override open func willMove(from view: SKView) {
-        self.removeAllChildren()
-        self.removeAllActions()
+        //self.removeAllChildren()
+        //self.removeAllActions()
     }
     
     deinit {

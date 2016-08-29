@@ -124,8 +124,8 @@ open class SBSubScene {
     }
     
     open func hideFromView() {
-        self.sceneNode?.position = CGPoint(x:1700, y:2900)
-        self.sceneNode?.zRotation = -0.1
+        self.sceneNode?.position = CGPoint(x:1365, y:2900)
+        self.sceneNode?.zRotation = 0
     }
 
     deinit {

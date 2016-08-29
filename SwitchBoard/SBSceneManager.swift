@@ -34,6 +34,9 @@ public class SBSceneManager : SBViewDelegate {
     /// All scene objects that can be played.
     public var scenes = Dictionary<String, SBSceneContainer>()
     
+    /// Static variable to be used to make loading screens take up a minimum amount of time
+    let ARTIFICAL_LOADING_DELAY : Double = 1
+    
     // MARK: Initializing a SBSceneManager
     
     /// Requires a view to initialize. Won't present anything on init. Instead, SBSceneContainers must be registered, and `sceneDidFinish` must be called with the initial scene to view.
@@ -41,93 +44,123 @@ public class SBSceneManager : SBViewDelegate {
         self.view = view
     }
     
-    // MARK: Registering Scenes
+    // MARK: Public API
     
     /// Main way to add SBSceneContainers to the pool of available scenes.
     public func registerScene(key:String, scene:SBSceneContainer) {
         self.scenes[key] = scene
     }
     
+    /// For loading to work, this has to be called after scenes are registered.
+    /// Loads the loading scene into memory and never lets go throughout lifetime of app
     public func preloadLoadingScene() {
         if let sceneObj = self.scenes["Loading"] {
             self.loadingScene = sceneObj.classType.init(fileNamed: sceneObj.name)
         }
     }
     
+    /// Public facing method to play a scene. Pass in the next SBSceneContainer to get that scene to load.
+    public func sceneDidFinish(nextScene:SBSceneContainer) {
+        self.prepareNextScene(sceneObj: nextScene)
+    }
+    
     // MARK: Loading Scenes
     
     /// The standard method to load a scene and then present it
-    internal func loadAndPresentScene(sceneObj:SBSceneContainer) {
+    internal func prepareNextScene(sceneObj:SBSceneContainer) {
         
-        /// If the scene is cached, set it to current scene and present it
-        /// This is specifically an entire scene cached, not just the textures
-        if let scene = self.sceneCache[sceneObj.name] {
-            logged("Loading entire scene from cache", file:#file, level:.Debug)
-            self.currentScene = sceneObj
-            self.presentScene(scene: scene, sceneObj: sceneObj)
-        }
-        /// else show loading screen and fully load scene. clear cache if needed
-        else {
-            /// Change cache if major scene change, in which case set bool to preload all related scene assets
-            var fullReset : Bool = false
-            if(self.clearSceneCacheIfNecessary(sceneObj: sceneObj) && self.loadingScene != nil) {
-                fullReset = true
-                
-                logged("Full wipe during scene transtion -- show loading screen", file:#file, level:.Debug)
-                
-                /// Show loading screen on every load except for inital game startup
-                if self.currentScene != nil {
-                    logged("presenting loading screen", file:#file, level:.Debug)
-                    
-                    // NOTE: Using cached scene doesn't reliably show for some reason in iOS10 beta. 
-                    // So for now we're reloading the loading scene each time it needs to be displayed.
-                    ///self.presentScene(scene: SKScene(fileNamed:"Loading")!, sceneObj: SBSceneContainer(classType: SBGameScene.self, name: "Loading", transition: SKTransition.moveIn(with: .down, duration: 1), preloadable: false, category: .Misc, atlases: []))
-                    self.presentScene(scene: self.loadingScene!, sceneObj: self.scenes["Loading"])
-
-                }
-                
+        /// Present scene if cached, otherwise continue executing
+        if !self.presentCachedScene(sceneObj: sceneObj) {
+      
+            /// Present loading scene and clear cache if necessary.
+            /// Assuming loading is required, set desired fake delay for loading screen
+            var delay : Double = 0
+            if self.requiresLoadingScreen(sceneObj: sceneObj) {
+                delay = self.ARTIFICAL_LOADING_DELAY
             }
             
-            var delay = 0
-            if fullReset == true {
-                delay = 2
-            }
+            /// Now that cached scenes have been handled, and loading screen is showing, actually do work to present desired scene
+            self.loadAndPresentScene(sceneObj: sceneObj, delay: delay)
             
-            Time.delay(delay: Double(delay)) {
-                /// Load assets for this scene, and present it
-                sceneObj.classType.loadAndCacheSceneAssets(atlasNames: sceneObj.atlases) {
-                    sceneObj.classType.loadSceneAssetsWithCompletionHandler() {
-
-                        if let scene = sceneObj.classType.init(fileNamed: sceneObj.name) {
-                            scene.userData = sceneObj.userData
-                            scene.sbViewDelegate = self
-                            self.currentScene = sceneObj
-                            print("Here")
-                            Time.delay(delay: Double(delay)) {
-                                print("but not here")
-                                self.presentScene(scene: scene, sceneObj: sceneObj)
-                            }
-                            
-                            /// We actually do the preload of related scene assets here so that it doesn't happen in background while
-                            /// main assets are loading. This happens after, which will prevent duplicate loading of atlases
-                            if(fullReset) {
-                                ///self.preloadRelatedScenesInBackground(sceneObj: sceneObj)
-                            }
-                        }
-                    }
-                }
-                }
         }
         
     }
     
+    /// Now that cached scenes have been handled, and loading screen is showing, actually do work to present desired scene
+    internal func loadAndPresentScene(sceneObj:SBSceneContainer, delay:Double) {
+        
+        /// Delay loading next scene because we don't want lag when Loading Scene animates in
+        Time.delay(delay: delay) {
+            
+            /// Load assets for this scene, specified in the scene groups atlases
+            sceneObj.classType.loadAndCacheSceneAssets(atlasNames: sceneObj.atlases) {
+                
+                /// Load additional assets that may be set by the user in the actual scene
+                sceneObj.classType.loadSceneAssetsWithCompletionHandler() {
+                    
+                    /// Initia;ize the new scene
+                    if let scene = sceneObj.classType.init(fileNamed: sceneObj.name) {
+                        scene.userData = sceneObj.userData
+                        scene.sbViewDelegate = self
+                        self.currentScene = sceneObj
+                        
+                        /// Present the new scene after fake loading delay
+                        Time.delay(delay: delay) {
+                            self.presentScene(scene: scene, sceneObj: sceneObj)
+                        }
+                        
+                        /// We actually do the preload of related scene assets here so that it doesn't happen in background while
+                        /// main assets are loading. This happens after, which will prevent duplicate loading of atlases
+                        /// NOTE: Commenting this out because there are no related scene groups in the game yet, and I don't want more async calls to break anything.
+                        /**
+                         if(delay > 0) {
+                         self.preloadRelatedScenesInBackground(sceneObj: sceneObj)
+                         }*/
+                    }
+                }
+            }
+        }
+
+    }
+    
+    /// If the scene is cached, set it to current scene and present it
+    /// This is specifically an entire scene cached, not just the textures
+    /// NOTE: Scenes are only cached in their entirety if the user explicitly adds to the sceneCache array
+    internal func presentCachedScene(sceneObj:SBSceneContainer) -> Bool {
+        if let scene = self.sceneCache[sceneObj.name] {
+            logged("Loading entire scene from cache", file:#file, level:.Debug)
+            self.currentScene = sceneObj
+            self.presentScene(scene: scene, sceneObj: sceneObj)
+            return true
+        }
+        return false
+    }
+    
+    /// Looks at the scene groupd and presents loading screen if required.
+    internal func requiresLoadingScreen(sceneObj:SBSceneContainer) -> Bool {
+        if(self.clearSceneCacheIfNecessary(sceneObj: sceneObj) && self.loadingScene != nil) {
+            
+            logged("Full wipe during scene transtion -- show loading screen", file:#file, level:.Debug)
+            
+            /// Show loading screen on every load except for inital game startup
+            if self.currentScene != nil {
+                
+                self.presentScene(scene: self.loadingScene!, sceneObj: self.scenes["Loading"])
+                return true
+                
+            }
+            
+        }
+        return false
+    }
+    
     internal func presentScene(scene:SKScene, sceneObj:SBSceneContainer?) {
-        // Configure the view.
+
         if let skView = self.view {
-            //skView?.showsFPS = true
-            //skView?.showsNodeCount = true
-            //skView.showsPhysics = true
-            //skView.showsDrawCount = true
+            ///skView?.showsFPS = true
+            ///skView?.showsNodeCount = true
+            ///skView.showsPhysics = true
+            ///skView.showsDrawCount = true
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
@@ -139,7 +172,6 @@ public class SBSceneManager : SBViewDelegate {
             self.removeGestureRecognizer()
             
             /// Cut the framerate down to 30 FPS
-            //skView.frameInterval = 1
             skView.preferredFramesPerSecond = 60
                                 
             if(sceneObj?.transition != nil) {
@@ -156,11 +188,8 @@ public class SBSceneManager : SBViewDelegate {
             logged("Lost handle on skView\n", file:#file, level:.Error, newline:true)
         }
     }
-    
-    /// Public facing method to play a scene. Pass in the next SBSceneContainer to get that scene to load.
-    public func sceneDidFinish(nextScene:SBSceneContainer) {
-        self.loadAndPresentScene(sceneObj: nextScene)
-    }
+
+    // MARK: Cleanup
     
     /// Method to remove all gesture recognizers from the view
     public func removeGestureRecognizer() {
@@ -175,6 +204,7 @@ public class SBSceneManager : SBViewDelegate {
 
     // MARK: Caching
     
+    /// This will keep atlases that are being used in the next scene, but get rid of everything else.
     internal func clearSceneCacheIfNecessary(sceneObj:SBSceneContainer) -> Bool {
         /// If major scene change, clear cache, or if first scene to be shown
         if((sceneObj.category != self.currentScene?.category && sceneObj.category != SBSceneContainer.SceneGroup.Misc) || self.currentScene == nil) {
@@ -204,8 +234,8 @@ public class SBSceneManager : SBViewDelegate {
         return false
     }
     
-    // If a scene group requires it, preload all related assets
-    // For example, when loading world map, camp will also be loaded
+    /// If a scene group requires it, preload all related assets
+    /// For example, when loading world map, camp will also be loaded
     internal func preloadRelatedScenesInBackground(sceneObj:SBSceneContainer) {
         if(sceneObj.category.loadGroup) {
             for (_, scene) in self.scenes {
