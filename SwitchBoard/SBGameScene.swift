@@ -194,6 +194,18 @@ open class SBGameScene : SKScene {
                 camera.constraints = [levelEdgeConstraint]
         }
     }
+    
+    // MARK: Keyframes
+    
+    /// Override if you want an animation to happen before processing other scene information
+    open func willAnimate(to view:SKView, callback:@escaping()->()) {
+        callback()
+    }
+    
+    /// Override if you want an unload animation to happen for your scene before scene change happens
+    open func willAnimate(from view:SKView, nextScene:SBSceneContainer, callback:@escaping()->()) {
+        callback()
+    }
 
     // MARK: Preloading Assets
     
@@ -257,8 +269,8 @@ open class SBGameScene : SKScene {
     /// Called automatically and will remove nodes and actions. After this, a log line should print indicating the scene
     /// was successfully deallocated. If you don't see the log line, there is probably a memory leak somewhere.
     override open func willMove(from view: SKView) {
-        //self.removeAllChildren()
-        //self.removeAllActions()
+        self.removeAllChildren()
+        self.removeAllActions()
     }
     
     deinit {
