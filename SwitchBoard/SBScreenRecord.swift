@@ -39,7 +39,7 @@ extension SBGameScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate
         self.recording = true
     }
     
-    public func stopScreenRecordingWithHandler(handler:(() -> Void)) {
+    public func stopScreenRecordingWithHandler(handler:@escaping (() -> Void)) {
         let sharedRecorder = RPScreenRecorder.shared()
 
         sharedRecorder.stopRecording() { (previewViewController: RPPreviewViewController?, error: Error?) in

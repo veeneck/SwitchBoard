@@ -50,7 +50,7 @@ open class SBSubScene {
     
     /// Sound to play when the card is animated
     public var slideSound : SKAction {
-        return PBSound.sharedInstance.getSKActionForSound(fileName: "cardboard_slide.wav")
+        return PBSound.sharedInstance.getSKActionForSound(fileName: "BarricAssets.framework/cardboard_slide.wav")
     }
     
     // MARK: Init

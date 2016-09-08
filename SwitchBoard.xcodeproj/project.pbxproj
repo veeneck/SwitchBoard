@@ -12,7 +12,6 @@
 		E70D18501C25FD2D00BFD600 /* SwitchBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D184F1C25FD2D00BFD600 /* SwitchBoardTests.swift */; };
 		E70D18621C26074F00BFD600 /* PanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D18601C26074F00BFD600 /* PanGesture.swift */; };
 		E70D18631C26074F00BFD600 /* PinchGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D18611C26074F00BFD600 /* PinchGesture.swift */; };
-		E70D18651C26077900BFD600 /* Particleboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70D18641C26077900BFD600 /* Particleboard.framework */; };
 		E70D18691C2607F800BFD600 /* SBGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D18681C2607F800BFD600 /* SBGameScene.swift */; };
 		E70D186B1C2609E700BFD600 /* SBScreenRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D186A1C2609E700BFD600 /* SBScreenRecord.swift */; };
 		E70D186D1C260B1500BFD600 /* SBViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D186C1C260B1500BFD600 /* SBViewDelegate.swift */; };
@@ -21,6 +20,7 @@
 		E70D18731C26147500BFD600 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E70D18711C26147500BFD600 /* README.md */; };
 		E73F51C81C3C5D400075A632 /* SBSceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F51C71C3C5D3F0075A632 /* SBSceneManager.swift */; };
 		E73F51CA1C3DAA8F0075A632 /* SBCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F51C91C3DAA8F0075A632 /* SBCache.swift */; };
+		E74871A51D81FE94008D64D8 /* Particleboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E74871A41D81FE94008D64D8 /* Particleboard.framework */; };
 		E799F3C21D64D5C30056B313 /* SBSubScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799F3C11D64D5C30056B313 /* SBSubScene.swift */; };
 		E799F3C31D64D5C30056B313 /* SBSubScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799F3C11D64D5C30056B313 /* SBSubScene.swift */; };
 		E7CBDB051D1B20F500FE9E66 /* SwitchBoardOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E7CBDB041D1B20F500FE9E66 /* SwitchBoardOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -60,7 +60,6 @@
 		E70D18511C25FD2D00BFD600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E70D18601C26074F00BFD600 /* PanGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanGesture.swift; sourceTree = "<group>"; };
 		E70D18611C26074F00BFD600 /* PinchGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinchGesture.swift; sourceTree = "<group>"; };
-		E70D18641C26077900BFD600 /* Particleboard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Particleboard.framework; path = "../../../Library/Developer/Xcode/DerivedData/Particleboard-evhemslkpnponvhfactqjnukksgb/Build/Products/Debug-iphoneos/Particleboard.framework"; sourceTree = "<group>"; };
 		E70D18681C2607F800BFD600 /* SBGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBGameScene.swift; sourceTree = "<group>"; };
 		E70D186A1C2609E700BFD600 /* SBScreenRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBScreenRecord.swift; sourceTree = "<group>"; };
 		E70D186C1C260B1500BFD600 /* SBViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBViewDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +68,7 @@
 		E70D18711C26147500BFD600 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E73F51C71C3C5D3F0075A632 /* SBSceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBSceneManager.swift; sourceTree = "<group>"; };
 		E73F51C91C3DAA8F0075A632 /* SBCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBCache.swift; sourceTree = "<group>"; };
+		E74871A41D81FE94008D64D8 /* Particleboard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Particleboard.framework; path = "../../../Builds/Products/Debug-iphoneos/Particleboard.framework"; sourceTree = "<group>"; };
 		E799F3C11D64D5C30056B313 /* SBSubScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBSubScene.swift; sourceTree = "<group>"; };
 		E7CBDB021D1B20F500FE9E66 /* SwitchBoardOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwitchBoardOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CBDB041D1B20F500FE9E66 /* SwitchBoardOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchBoardOS.h; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E70D18651C26077900BFD600 /* Particleboard.framework in Frameworks */,
+				E74871A51D81FE94008D64D8 /* Particleboard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +167,7 @@
 			children = (
 				E70D18701C26147500BFD600 /* config.yml */,
 				E70D18711C26147500BFD600 /* README.md */,
-				E70D18641C26077900BFD600 /* Particleboard.framework */,
+				E74871A41D81FE94008D64D8 /* Particleboard.framework */,
 				E7CBDB471D1B245B00FE9E66 /* ParticleboardOS.framework */,
 				E70D18431C25FD2D00BFD600 /* SwitchBoard.h */,
 				E70D18451C25FD2D00BFD600 /* Info.plist */,
@@ -468,6 +468,11 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"/Users/ryancampbell/Builds/Products/Debug-iphoneos",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -516,6 +521,11 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"/Users/ryancampbell/Builds/Products/Release-iphoneos",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -542,10 +552,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"/Users/ryancampbell/Library/Developer/Xcode/DerivedData/Particleboard-evhemslkpnponvhfactqjnukksgb/Build/Products/Debug-iphoneos/",
-					"/Users/ryancampbell/Library/Developer/Xcode/DerivedData/Particleboard-evhemslkpnponvhfactqjnukksgb/Build/Products/Debug/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = SwitchBoard/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -567,10 +574,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"/Users/ryancampbell/Library/Developer/Xcode/DerivedData/Particleboard-evhemslkpnponvhfactqjnukksgb/Build/Products/Debug-iphoneos/",
-					"/Users/ryancampbell/Library/Developer/Xcode/DerivedData/Particleboard-evhemslkpnponvhfactqjnukksgb/Build/Products/Debug/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = SwitchBoard/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -618,7 +622,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "/Users/ryancampbell/Library/Developer/Xcode/DerivedData/Particleboard-evhemslkpnponvhfactqjnukksgb/Build/Products/Debug/";
+				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwitchBoardOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -644,7 +648,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "/Users/ryancampbell/Library/Developer/Xcode/DerivedData/Particleboard-evhemslkpnponvhfactqjnukksgb/Build/Products/Debug/";
+				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwitchBoardOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
