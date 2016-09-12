@@ -88,6 +88,12 @@ open class SBSubScene {
         self.willMove(to: parent.view!)
     }
     
+    // MARK: Update Loop
+    
+    open func update(_ currentTime: TimeInterval) {
+
+    }
+    
     // MARK: Keyframes
     
     /// Called when subscene is initialized, but not necessarily added to screen or in view.
