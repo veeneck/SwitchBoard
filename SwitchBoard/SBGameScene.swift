@@ -122,7 +122,6 @@ open class SBGameScene : SKScene {
 
     // MARK: Registering Gestures
     
-    #if os(iOS)
     
     /// Call this to register pinch and pan gestures which will be tied to "World/bg" in your node tree. See `setCameraBounds`.
     public func registerGestures() {
@@ -132,10 +131,12 @@ open class SBGameScene : SKScene {
         self.view!.addGestureRecognizer(panRecognizer)
         
         /// Pinc to zoom setup
-        let pinchRecognizer = PinchGesture(target:self, action:#selector(self.detectPinch(recognizer:)))
-        self.view!.addGestureRecognizer(pinchRecognizer)
+        ///let pinchRecognizer = PinchGesture(target:self, action:#selector(self.detectPinch(recognizer:)))
+        ///self.view!.addGestureRecognizer(pinchRecognizer)
         
     }
+    
+    #if os(iOS)
     
     public func detectPan(recognizer:UIPanGestureRecognizer) {
         let handler = recognizer as! PanGesture
@@ -144,14 +145,24 @@ open class SBGameScene : SKScene {
         }
     }
     
-    public func detectPinch(recognizer:UIPinchGestureRecognizer) {
-        let handler = recognizer as! PinchGesture
+    #else
+    
+    public func detectPan(recognizer:NSPanGestureRecognizer) {
+        let handler = recognizer as! PanGesture
         if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
-            handler.handlePinch(recognizer: recognizer, target: camera)
+            handler.handlePan(recognizer: recognizer, target: camera)
         }
     }
     
     #endif
+    
+    /*public func detectPinch(recognizer:UIPinchGestureRecognizer) {
+        let handler = recognizer as! PinchGesture
+        if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
+            handler.handlePinch(recognizer: recognizer, target: camera)
+        }
+    }*/
+    
     
     // MARK: Camera Constraints
     

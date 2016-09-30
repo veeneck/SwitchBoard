@@ -23,6 +23,7 @@
 		E74871A51D81FE94008D64D8 /* Particleboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E74871A41D81FE94008D64D8 /* Particleboard.framework */; };
 		E799F3C21D64D5C30056B313 /* SBSubScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799F3C11D64D5C30056B313 /* SBSubScene.swift */; };
 		E799F3C31D64D5C30056B313 /* SBSubScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E799F3C11D64D5C30056B313 /* SBSubScene.swift */; };
+		E7C34BDD1D9038CC00ACEC67 /* PanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D18601C26074F00BFD600 /* PanGesture.swift */; };
 		E7CBDB051D1B20F500FE9E66 /* SwitchBoardOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E7CBDB041D1B20F500FE9E66 /* SwitchBoardOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7CBDB0C1D1B20F600FE9E66 /* SwitchBoardOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CBDB021D1B20F500FE9E66 /* SwitchBoardOS.framework */; };
 		E7CBDB111D1B20F600FE9E66 /* SwitchBoardOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBDB101D1B20F600FE9E66 /* SwitchBoardOSTests.swift */; };
@@ -413,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7CBDB441D1B23F200FE9E66 /* SBSceneManager.swift in Sources */,
+				E7C34BDD1D9038CC00ACEC67 /* PanGesture.swift in Sources */,
 				E7CBDB491D1B24E700FE9E66 /* SBGameScene.swift in Sources */,
 				E799F3C31D64D5C30056B313 /* SBSubScene.swift in Sources */,
 				E7CBDB451D1B23F400FE9E66 /* SBCache.swift in Sources */,
