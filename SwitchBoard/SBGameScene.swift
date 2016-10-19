@@ -168,41 +168,52 @@ open class SBGameScene : SKScene {
     
     /// Bind the camera to the size of any node in your scene named "bg" that is a child of "World". This is automaticaly called from functions that change perspective like PinchGesture. You can also call on your own if you manually change the scale of the scene.
     public func setCameraBounds(offsetBounds:CameraBounds) {
-        if let camera = self.childNode(withName: "Camera") as? SKCameraNode,
-            let bg = self.childNode(withName: "World/bg") {
+        if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
+            
+            var bg : SKNode? = nil
+            if let root = self.childNode(withName: "World/bg") {
+                bg = root
+            }
+            else if let root = self.childNode(withName: "World/root/bg") {
+                bg = root
+            }
+            
+            if bg == nil {
+                return
+            }
                 
-                /// Find size of scene, and size of bg node which contains all ndoes that make up the board
-                let scaledSize = CGSize(width: size.width * camera.xScale, height: size.height * camera.yScale)
-                var bgSize  = self.bgSizeCache
-                if bgSize == nil {
-                    bgSize = bg.calculateAccumulatedFrame()
-                    self.bgSizeCache = bgSize
-                }
-                
-                /**
-                Work out how far within this rectangle to constrain the camera.
-                We want to stop the camera when we get within 0pts of the edge of the screen,
-                unless the level is so small that this inset would be outside of the level.
-                */
-                let xInset = min((scaledSize.width / 2), bgSize!.width / 2)
-                let yInset = min((scaledSize.height / 2), bgSize!.height / 2)
-                
-                /// Use these insets to create a smaller inset rectangle within which the camera must stay.
-                let insetContentRect = bgSize!.insetBy(dx: xInset, dy: yInset)
-                
-                /// Define an `SKRange` for each of the x and y axes to stay within the inset rectangle.
-                let xRange = SKRange(
-                    lowerLimit: insetContentRect.minX - offsetBounds.leftXOffset,
-                    upperLimit: insetContentRect.maxX - offsetBounds.rightXOffset)
-                let yRange = SKRange(
-                    lowerLimit: insetContentRect.minY - (offsetBounds.lowerYOffset * camera.yScale),
-                    upperLimit: insetContentRect.maxY - offsetBounds.upperYOffset)
-                
-                /// Constrain the camera within the inset rectangle.
-                let levelEdgeConstraint = SKConstraint.positionX(xRange, y: yRange)
-                levelEdgeConstraint.referenceNode = bg
-                
-                camera.constraints = [levelEdgeConstraint]
+            /// Find size of scene, and size of bg node which contains all ndoes that make up the board
+            let scaledSize = CGSize(width: size.width * camera.xScale, height: size.height * camera.yScale)
+            var bgSize  = self.bgSizeCache
+            if bgSize == nil {
+                bgSize = bg!.calculateAccumulatedFrame()
+                self.bgSizeCache = bgSize
+            }
+            
+            /**
+            Work out how far within this rectangle to constrain the camera.
+            We want to stop the camera when we get within 0pts of the edge of the screen,
+            unless the level is so small that this inset would be outside of the level.
+            */
+            let xInset = min((scaledSize.width / 2), bgSize!.width / 2)
+            let yInset = min((scaledSize.height / 2), bgSize!.height / 2)
+            
+            /// Use these insets to create a smaller inset rectangle within which the camera must stay.
+            let insetContentRect = bgSize!.insetBy(dx: xInset, dy: yInset)
+            
+            /// Define an `SKRange` for each of the x and y axes to stay within the inset rectangle.
+            let xRange = SKRange(
+                lowerLimit: insetContentRect.minX - offsetBounds.leftXOffset,
+                upperLimit: insetContentRect.maxX - offsetBounds.rightXOffset)
+            let yRange = SKRange(
+                lowerLimit: insetContentRect.minY - (offsetBounds.lowerYOffset * camera.yScale),
+                upperLimit: insetContentRect.maxY - offsetBounds.upperYOffset)
+            
+            /// Constrain the camera within the inset rectangle.
+            let levelEdgeConstraint = SKConstraint.positionX(xRange, y: yRange)
+            levelEdgeConstraint.referenceNode = bg
+            
+            camera.constraints = [levelEdgeConstraint]
         }
     }
     

@@ -66,6 +66,7 @@ open class SBSubScene {
             
             let sceneReference = SKReferenceNode(fileNamed: self.sceneName)
             let node = (sceneReference?.childNode(withName: "root")!.copy() as? SKNode)
+            node?.name = "root"
                 
             
             DispatchQueue.main.async {
