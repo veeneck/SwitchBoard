@@ -18,6 +18,8 @@
 		E70D186F1C260B5F00BFD600 /* SBSceneContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70D186E1C260B5F00BFD600 /* SBSceneContainer.swift */; };
 		E70D18721C26147500BFD600 /* config.yml in Resources */ = {isa = PBXBuildFile; fileRef = E70D18701C26147500BFD600 /* config.yml */; };
 		E70D18731C26147500BFD600 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E70D18711C26147500BFD600 /* README.md */; };
+		E72638D31E6DF28500A20473 /* KeyGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72638D21E6DF28500A20473 /* KeyGesture.swift */; };
+		E72638D61E704FEF00A20473 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72638D41E704FEC00A20473 /* Keyboard.swift */; };
 		E73F51C81C3C5D400075A632 /* SBSceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F51C71C3C5D3F0075A632 /* SBSceneManager.swift */; };
 		E73F51CA1C3DAA8F0075A632 /* SBCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F51C91C3DAA8F0075A632 /* SBCache.swift */; };
 		E74871A51D81FE94008D64D8 /* Particleboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E74871A41D81FE94008D64D8 /* Particleboard.framework */; };
@@ -67,6 +69,8 @@
 		E70D186E1C260B5F00BFD600 /* SBSceneContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBSceneContainer.swift; sourceTree = "<group>"; };
 		E70D18701C26147500BFD600 /* config.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config.yml; sourceTree = "<group>"; };
 		E70D18711C26147500BFD600 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E72638D21E6DF28500A20473 /* KeyGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyGesture.swift; sourceTree = "<group>"; };
+		E72638D41E704FEC00A20473 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		E73F51C71C3C5D3F0075A632 /* SBSceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBSceneManager.swift; sourceTree = "<group>"; };
 		E73F51C91C3DAA8F0075A632 /* SBCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBCache.swift; sourceTree = "<group>"; };
 		E74871A41D81FE94008D64D8 /* Particleboard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Particleboard.framework; path = "../../../Builds/Products/Debug-iphoneos/Particleboard.framework"; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 			children = (
 				E70D18601C26074F00BFD600 /* PanGesture.swift */,
 				E70D18611C26074F00BFD600 /* PinchGesture.swift */,
+				E72638D21E6DF28500A20473 /* KeyGesture.swift */,
+				E72638D41E704FEC00A20473 /* Keyboard.swift */,
 			);
 			name = Gestures;
 			sourceTree = "<group>";
@@ -416,6 +422,8 @@
 				E7CBDB441D1B23F200FE9E66 /* SBSceneManager.swift in Sources */,
 				E7C34BDD1D9038CC00ACEC67 /* PanGesture.swift in Sources */,
 				E7CBDB491D1B24E700FE9E66 /* SBGameScene.swift in Sources */,
+				E72638D31E6DF28500A20473 /* KeyGesture.swift in Sources */,
+				E72638D61E704FEF00A20473 /* Keyboard.swift in Sources */,
 				E799F3C31D64D5C30056B313 /* SBSubScene.swift in Sources */,
 				E7CBDB451D1B23F400FE9E66 /* SBCache.swift in Sources */,
 				E7CBDB431D1B23EF00FE9E66 /* SBViewDelegate.swift in Sources */,

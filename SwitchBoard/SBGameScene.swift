@@ -68,6 +68,9 @@ open class SBGameScene : SKScene {
     /// Handle on default camera bounds for the scene
     public var cameraBounds : CameraBounds = CameraBounds(lower: 0, left: 0, upper: 0, right: 0)
     
+    /// Keyboard settings enabled and disabled
+    public var movementKeysEnabled : Bool = false
+    
     #if os(iOS)
         /// ReplayKit preview view controller used when viewing recorded content.
         /// See README for example usages as the extension is not showing in the documentation.
@@ -162,7 +165,6 @@ open class SBGameScene : SKScene {
             handler.handlePinch(recognizer: recognizer, target: camera)
         }
     }*/
-    
     
     // MARK: Camera Constraints
     
@@ -284,6 +286,25 @@ open class SBGameScene : SKScene {
                 handler()
             }
         
+    }
+    
+    // MARK: Update Loop For Keyboard
+    
+    override open func update(_ currentTime: TimeInterval) {
+        super.update(currentTime)
+        self.handleKeyPress()
+    }
+    
+    override open func didFinishUpdate() {
+        Keyboard.sharedKeyboard.update()
+    }
+    
+    override open func keyUp(with event: NSEvent) {
+        Keyboard.sharedKeyboard.handleKey(event: event, isDown: false)
+    }
+    
+    override open func keyDown(with event: NSEvent) {
+        Keyboard.sharedKeyboard.handleKey(event: event, isDown: true)
     }
     
     // MARK: Cleanup
