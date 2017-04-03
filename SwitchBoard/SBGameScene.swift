@@ -150,11 +150,12 @@ open class SBGameScene : SKScene {
     
     #else
     
+    /// Currently disabled because a slight drag prevents a click, so keyboard is used to pan and not mouse 
     public func detectPan(recognizer:NSPanGestureRecognizer) {
-        let handler = recognizer as! PanGesture
+        /*let handler = recognizer as! PanGesture
         if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
             handler.handlePan(recognizer: recognizer, target: camera)
-        }
+        }*/
     }
     
     #endif
@@ -186,6 +187,7 @@ open class SBGameScene : SKScene {
                 
             /// Find size of scene, and size of bg node which contains all ndoes that make up the board
             let scaledSize = CGSize(width: size.width * camera.xScale, height: size.height * camera.yScale)
+            
             var bgSize  = self.bgSizeCache
             if bgSize == nil {
                 bgSize = bg!.calculateAccumulatedFrame()
@@ -217,6 +219,11 @@ open class SBGameScene : SKScene {
             
             camera.constraints = [levelEdgeConstraint]
         }
+    }
+    
+    /// Handy function to remove cameras constraints
+    public func removeCameraBounds() {
+        self.camera?.constraints?.removeAll()
     }
     
     // MARK: Keyframes
@@ -292,9 +299,12 @@ open class SBGameScene : SKScene {
     
     override open func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
-        self.handleKeyPress()
+        #if os(OSX)
+            self.handleKeyPress()
+        #endif
     }
     
+    #if os(OSX)
     override open func didFinishUpdate() {
         Keyboard.sharedKeyboard.update()
     }
@@ -306,6 +316,7 @@ open class SBGameScene : SKScene {
     override open func keyDown(with event: NSEvent) {
         Keyboard.sharedKeyboard.handleKey(event: event, isDown: true)
     }
+    #endif
     
     // MARK: Cleanup
 
