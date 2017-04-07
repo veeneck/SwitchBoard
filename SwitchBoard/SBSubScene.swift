@@ -122,6 +122,13 @@ open class SBSubScene {
         callback()
     }
     
+    // MARK: User Input
+    
+    /// Most menus & buttons are handle by their framework. This is for clicks / taps directly on the scene. Override in implementation
+    open func clickUp(location:CGPoint) {
+        
+    }
+    
     // MARK: Transitions
     
     /// Move the scene into view
