@@ -133,9 +133,11 @@ open class SBGameScene : SKScene {
         let panRecognizer = PanGesture(target:self, action:#selector(self.detectPan(recognizer:)))
         self.view!.addGestureRecognizer(panRecognizer)
         
-        /// Pinc to zoom setup
-        ///let pinchRecognizer = PinchGesture(target:self, action:#selector(self.detectPinch(recognizer:)))
-        ///self.view!.addGestureRecognizer(pinchRecognizer)
+        #if os(iOS)
+            /// Pinc to zoom setup
+            let pinchRecognizer = PinchGesture(target:self, action:#selector(self.detectPinch(recognizer:)))
+            self.view!.addGestureRecognizer(pinchRecognizer)
+        #endif
         
     }
     
@@ -148,6 +150,13 @@ open class SBGameScene : SKScene {
         }
     }
     
+    public func detectPinch(recognizer:UIPinchGestureRecognizer) {
+         let handler = recognizer as! PinchGesture
+         if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
+            handler.handlePinch(recognizer: recognizer, target: camera)
+         }
+     }
+    
     #else
     
     /// Currently disabled because a slight drag prevents a click, so keyboard is used to pan and not mouse 
@@ -159,14 +168,7 @@ open class SBGameScene : SKScene {
     }
     
     #endif
-    
-    /*public func detectPinch(recognizer:UIPinchGestureRecognizer) {
-        let handler = recognizer as! PinchGesture
-        if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
-            handler.handlePinch(recognizer: recognizer, target: camera)
-        }
-    }*/
-    
+ 
     // MARK: Camera Constraints
     
     /// Bind the camera to the size of any node in your scene named "bg" that is a child of "World". This is automaticaly called from functions that change perspective like PinchGesture. You can also call on your own if you manually change the scale of the scene.
