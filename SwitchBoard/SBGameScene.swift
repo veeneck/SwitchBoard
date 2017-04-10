@@ -138,7 +138,16 @@ open class SBGameScene : SKScene {
             let pinchRecognizer = PinchGesture(target:self, action:#selector(self.detectPinch(recognizer:)))
             self.view!.addGestureRecognizer(pinchRecognizer)
         #endif
-        
+                
+    }
+    
+    /// Useful when unloading a scene, or when working with an SBSubscene that requires gestures, but then the next subscene does not
+    public func removeAllGestureRecognizers(){
+        if let recognizers = self.view?.gestureRecognizers {
+            for recognizer in recognizers {
+                self.view!.removeGestureRecognizer(recognizer)
+            }
+        }
     }
     
     #if os(iOS)
