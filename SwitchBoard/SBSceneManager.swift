@@ -231,6 +231,10 @@ public class SBSceneManager : SBViewDelegate {
             
             return true
         }
+        /// If reloading the same scene, show loading scene so that the code can unrelease any references to previous scene
+        else if sceneObj.name == self.currentScene?.name {
+            return true
+        }
         return false
     }
     

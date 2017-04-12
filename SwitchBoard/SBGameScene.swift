@@ -129,6 +129,8 @@ open class SBGameScene : SKScene {
     /// Call this to register pinch and pan gestures which will be tied to "World/bg" in your node tree. See `setCameraBounds`.
     public func registerGestures() {
         
+        logged("Adding gesture recognizers", file: #file)
+        
         /// Pan setupaction: #selector(gameViewController.cardTapped(_:))
         let panRecognizer = PanGesture(target:self, action:#selector(self.detectPan(recognizer:)))
         self.view!.addGestureRecognizer(panRecognizer)
@@ -143,6 +145,9 @@ open class SBGameScene : SKScene {
     
     /// Useful when unloading a scene, or when working with an SBSubscene that requires gestures, but then the next subscene does not
     public func removeAllGestureRecognizers(){
+        
+        logged("Removing gesture recognizers", file: #file)
+        
         if let recognizers = self.view?.gestureRecognizers {
             for recognizer in recognizers {
                 self.view!.removeGestureRecognizer(recognizer)
