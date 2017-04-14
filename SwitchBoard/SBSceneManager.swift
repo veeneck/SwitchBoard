@@ -158,7 +158,7 @@ public class SBSceneManager : SBViewDelegate {
 
         if let skView = self.view {
             ///skView?.showsFPS = true
-            ///skView?.showsNodeCount = true
+            ///skView.showsNodeCount = true
             ///skView.showsPhysics = true
             ///skView.showsDrawCount = true
             
@@ -172,7 +172,7 @@ public class SBSceneManager : SBViewDelegate {
             self.removeGestureRecognizer()
             
             /// Cut the framerate down to 30 FPS
-            skView.preferredFramesPerSecond = 60
+            skView.preferredFramesPerSecond = 30
                                 
             if(sceneObj?.transition != nil) {
                 let transition = sceneObj!.transition!

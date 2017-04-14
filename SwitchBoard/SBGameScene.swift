@@ -280,9 +280,8 @@ open class SBGameScene : SKScene {
             var textures = Array<SKTextureAtlas>()
             for (_, name) in uncachedNames.enumerated() {
                 textures.append(SKTextureAtlas(named: name))
-                
             }
-            
+                    
             /// If needed textures, preload them. Otherwise, go straight to handler callback
             if textures.count > 0 {
                 
