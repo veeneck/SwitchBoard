@@ -157,14 +157,14 @@ open class SBGameScene : SKScene {
     
     #if os(iOS)
     
-    public func detectPan(recognizer:UIPanGestureRecognizer) {
+    @objc public func detectPan(recognizer:UIPanGestureRecognizer) {
         let handler = recognizer as! PanGesture
         if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
             handler.handlePan(recognizer: recognizer, target: camera)
         }
     }
     
-    public func detectPinch(recognizer:UIPinchGestureRecognizer) {
+    @objc public func detectPinch(recognizer:UIPinchGestureRecognizer) {
          let handler = recognizer as! PinchGesture
          if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
             handler.handlePinch(recognizer: recognizer, target: camera)

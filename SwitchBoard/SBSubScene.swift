@@ -50,7 +50,7 @@ open class SBSubScene {
     
     /// Sound to play when the card is animated
     public var slideSound : SKAction {
-        return PBSound.sharedInstance.getSKActionForSound(fileName: "BarricAssets.framework/cardboard_slide.wav")
+        return PBSound.sharedInstance.getSKActionForSound(fileName: "cardboard_slide.wav")
     }
     
     // MARK: Init
@@ -64,15 +64,18 @@ open class SBSubScene {
     public func loadSceneFile(callback:@escaping ()->()) {
         DispatchQueue.global(qos: .background).async {
             
-            let sceneReference = SKReferenceNode(fileNamed: self.sceneName)
-            let node = (sceneReference?.childNode(withName: "root")!.copy() as? SKNode)
-            node?.name = "root"
+            if let sceneReference = SKReferenceNode(fileNamed: self.sceneName) {
                 
-            
-            DispatchQueue.main.async {
-                self.sceneNode = node
-                SBCache.sharedInstance.setObject(self, forKey: "subscene_\(self.sceneName)" as AnyObject)
-                callback()
+                /// This gets the "root" node of each subscene
+                let node = sceneReference.children[0].children[0]
+                node.name = "root"
+                    
+                
+                DispatchQueue.main.async {
+                    self.sceneNode = node
+                    SBCache.sharedInstance.setObject(self, forKey: "subscene_\(self.sceneName)" as AnyObject)
+                    callback()
+                }
             }
         }
        
