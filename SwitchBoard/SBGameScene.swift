@@ -103,6 +103,12 @@ open class SBGameScene : SKScene {
         permdebug.name = "PermanentDebugLayer"
         permdebug.zPosition = 3
         self.addChild(permdebug)
+        
+        /// Isometric ground layer
+        let transformLayer = PBIsometricNode()
+        transformLayer.name = "Ground"
+        worldNode.addChild(transformLayer)
+
     }
     
     /// Add a child node to one of our four hard coded layers.
@@ -131,11 +137,10 @@ open class SBGameScene : SKScene {
         
         logged("Adding gesture recognizers", file: #file)
         
-        /// Pan setupaction: #selector(gameViewController.cardTapped(_:))
-        let panRecognizer = PanGesture(target:self, action:#selector(self.detectPan(recognizer:)))
-        self.view!.addGestureRecognizer(panRecognizer)
-        
         #if os(iOS)
+            /// Pan setupaction: #selector(gameViewController.cardTapped(_:))
+            let panRecognizer = PanGesture(target:self, action:#selector(self.detectPan(recognizer:)))
+            self.view!.addGestureRecognizer(panRecognizer)
             /// Pinc to zoom setup
             let pinchRecognizer = PinchGesture(target:self, action:#selector(self.detectPinch(recognizer:)))
             self.view!.addGestureRecognizer(pinchRecognizer)
@@ -174,12 +179,12 @@ open class SBGameScene : SKScene {
     #else
     
     /// Currently disabled because a slight drag prevents a click, so keyboard is used to pan and not mouse 
-    public func detectPan(recognizer:NSPanGestureRecognizer) {
+    //public func detectPan(recognizer:NSPanGestureRecognizer) {
         /*let handler = recognizer as! PanGesture
         if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
             handler.handlePan(recognizer: recognizer, target: camera)
         }*/
-    }
+    //}
     
     #endif
  
@@ -331,6 +336,11 @@ open class SBGameScene : SKScene {
     override open func keyDown(with event: NSEvent) {
         Keyboard.sharedKeyboard.handleKey(event: event, isDown: true)
     }
+    
+    override open func scrollWheel(with event: NSEvent) {
+        print("mouse wheel")
+    }
+    
     #endif
     
     // MARK: Cleanup

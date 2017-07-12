@@ -78,10 +78,10 @@ public class PanGesture : NSPanGestureRecognizer {
     func handlePan(recognizer:NSPanGestureRecognizer, target:SKCameraNode) {
         switch(recognizer.state) {
             
-        case NSGestureRecognizerState.changed:
+        case NSGestureRecognizer.State.changed:
             self.handlePanChanged(recognizer: recognizer, target: target)
             
-        case NSGestureRecognizerState.ended:
+        case NSGestureRecognizer.State.ended:
             self.handlePanEnded(recognizer: recognizer, target: target)
             
         default:

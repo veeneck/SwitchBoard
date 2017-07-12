@@ -157,10 +157,10 @@ public class SBSceneManager : SBViewDelegate {
     internal func presentScene(scene:SKScene, sceneObj:SBSceneContainer?) {
 
         if let skView = self.view {
-            ///skView?.showsFPS = true
+            ///skView.showsFPS = true
             ///skView.showsNodeCount = true
             ///skView.showsPhysics = true
-            ///skView.showsDrawCount = true
+            skView.showsDrawCount = true
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true

@@ -17,6 +17,7 @@ public extension SBGameScene {
     public func handleKeyPress() {
         if self.movementKeysEnabled {
             self.handleMovementKeys()
+            self.handleCameraZoom()
         }
         /*if (Keyboard.sharedKeyboard.justPressed(keys: Key.Up)) {
             print("up")
@@ -45,6 +46,54 @@ public extension SBGameScene {
         if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
             camera.position += direction
         }
+    }
+    
+    public func handleCameraZoom() {
+        var direction : CGFloat = 0
+        if (Keyboard.sharedKeyboard.justPressed(keys: Key.Z) || Keyboard.sharedKeyboard.pressed(keys:Key.Z)) {
+            direction += 0.02
+        }
+        if (Keyboard.sharedKeyboard.justPressed(keys: Key.X) || Keyboard.sharedKeyboard.pressed(keys:Key.X)) {
+            direction -= 0.02
+        }
+        
+        if let camera = self.childNode(withName: "Camera") as? SKCameraNode {
+            var scale = camera.xScale + direction
+            scale = self.boundScaleToWindow(scale: scale, target:camera)
+            camera.setScale(scale)
+            self.updateCameraBounds(target: camera)
+        }
+    }
+    
+    public func updateCameraBounds(target:SKCameraNode) {
+        if let scene = target.scene as? SBGameScene {
+            scene.setCameraBounds(offsetBounds: scene.cameraBounds)
+        }
+    }
+    
+    public func boundScaleToWindow(scale:CGFloat, target:SKCameraNode) -> CGFloat {
+        
+        if let scene = target.scene as? SBGameScene,
+            let bgSize = scene.bgSizeCache {
+            let maxWidthScale = bgSize.width / scene.size.width
+            let maxHeightScale = bgSize.height / scene.size.height
+            if scale > maxWidthScale || scale > maxHeightScale {
+                return min(maxHeightScale, maxWidthScale)
+            }
+            if scale < 0.6 {
+                return 0.6
+            }
+        }
+        else {
+            if(scale > 1.2) {
+                return 1.2
+            }
+            if(scale < 0.6) {
+                return 0.6
+            }
+        }
+        
+        return scale
     }
 }
 
